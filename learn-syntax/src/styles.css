@@ -1,0 +1,18 @@
+body {
+  font-family: sans-serif;
+}
+
+input {
+  border-radius: 8px;
+  border: none;
+  padding: 6px 16px;
+}
+
+.input-area {
+  background-color: blue;
+  width: 400px;
+  height: 30px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+}
