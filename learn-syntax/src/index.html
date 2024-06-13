@@ -10,24 +10,31 @@
     <input placeholder="TODOを入力" />
     <button>追加</button>
   </div>
-  <div>
-    <p>未完了のTODO</p>
+  <div class="yet-todo-area">
+    <p class="title">未完了のTODO</p>
     <ul>
       <li>
-        <div>
-          <p>TODOです</p>
+        <div class="list-row">
+          <p class="todo-item">TODOです</p>
+          <button>完了</button>
+          <button>削除</button>
+        </div>
+      </li>
+      <li>
+        <div class="list-row">
+          <p class="todo-item">TODOです</p>
           <button>完了</button>
           <button>削除</button>
         </div>
       </li>
     </ul>
   </div>
-  <div>
-    <p>完了のTODO</p>
+  <div class="done-todo-area">
+    <p class="title">完了のTODO</p>
     <ul>
       <li>
-        <div>
-          <p>TODO-done</p>
+        <div class="list-row">
+          <p todo-item>TODO-done</p>
           <button>戻す</button>
         </div>
       </li>

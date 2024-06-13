@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  color: rgb(119, 119, 119);
 }
 
 input {
@@ -8,11 +9,57 @@ input {
   padding: 6px 16px;
 }
 
+button {
+  border-radius: 8px;
+  border: none;
+  padding: 4px 16px;
+  margin: 0px 2px;
+}
+
+button:hover {
+  background-color: red;
+  color: #fff;
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  margin-top: 0px;
+  font-weight: bold;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+}
+
 .input-area {
-  background-color: blue;
+  background-color: rgb(200, 243, 212);
   width: 400px;
   height: 30px;
   padding: 8px;
   margin: 8px;
   border-radius: 8px;
+}
+
+.yet-todo-area {
+  background-color: rgb(225, 225, 225);
+  width: 400px;
+  min-height: 200px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.done-todo-area {
+  background-color: rgb(185, 185, 185);
+  width: 400px;
+  min-height: 200px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.todo-item {
+  margin: 6px;
 }
