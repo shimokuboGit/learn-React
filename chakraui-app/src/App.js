@@ -1,28 +1,19 @@
-import { useState, useCallback, useMemo } from 'react';
 import './App.css';
-import { ChildArea } from './ChildArea';
+import { InlineStyle } from './components/InlineStyle';
+import { CssModules } from './components/CssModules';
+import { StyledJsx } from './components/StyledJsx';
+import { StyledComponents } from './components/StyledComponents';
+import { Emotion } from './components/Emotion';
 
 export default function App() {
-  console.log('aaa')
-  const [text, setText] = useState()
-  const [open, setOpen] = useState(false)
-  
-  const onChangeText = (e) => setText(e.target.value)
-
-  const onClickOpen = () => setOpen(!open)
-
-  const onClickClose = useCallback(() => setOpen(false), [text])
-
-  const temp = useMemo(() => 1 + 1, [])
-  console.log(temp + 'adsf')
 
   return (
     <div className="App">
-      <input value={text} onChange={onChangeText}/>
-      <br />
-      <br />
-      <button onClick={onClickOpen}>表示</button>
-      <ChildArea open={open} close={onClickClose} />
+      <InlineStyle />
+      <CssModules />
+      <StyledJsx />
+      <StyledComponents />
+      <Emotion />
     </div>
   );
 }
