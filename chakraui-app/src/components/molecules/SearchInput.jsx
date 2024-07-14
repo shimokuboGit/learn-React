@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 import { Input } from '../atoms/button/Input'
 import { PrimaryButton } from '../atoms/button/PrimaryButton'
+import { memo } from 'react'
 
-export const SearchInput = (props) => {
+export const SearchInput = memo((props) => {
 	const { placeholder = "" } = props
+
+	console.log("searchInput");
+
 	return (
 		<SContainer>
 			<Input placeholder={placeholder}/>
@@ -12,7 +16,7 @@ export const SearchInput = (props) => {
 			</SButtonWrapper>
 		</SContainer>
 	)
-}
+})
 
 const SContainer = styled.div`
 	display: flex;
