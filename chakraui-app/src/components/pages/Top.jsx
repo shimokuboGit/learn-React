@@ -3,10 +3,14 @@ import { SecondaryButton } from "../atoms/button/SecondaryButton";
 import { useNavigate } from  "react-router-dom"
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserProvider";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../store/UserState";
 
 export const Top = () => {
   const navigate = useNavigate()
-  const { setUserInfo } = useContext(UserContext);
+  // const { setUserInfo } = useContext(UserContext);
+  // recoilを使用
+  const setUserInfo = useSetRecoilState(userState);
   const onClickAdmin = () => {
     setUserInfo({ isAdmin: true })
     navigate("/users")
