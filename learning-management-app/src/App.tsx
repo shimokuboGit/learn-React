@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { Database } from './database.types';
+import { useEffect, useState, ChangeEvent } from 'react';
 import './App.css';
 import { InputLearnRecord } from './components/InputLearnRecord';
+import { LearnRecord } from './domain/LearnRecord';
 
 export const App = () => {
+  const supabase = createClient<Database>(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASAE_KEY)
 
   const [inputLearnTitle, setInputLearnTitle] = useState('')
-  const [inputLearnTime, setInputLearnTime] = useState('')
-  const [records, setRecords] = useState([])
-  const [error, setError] = useState('')
+  const [inputLearnTime, setInputLearnTime] = useState<number>(0);
+  const [records, setRecords] = useState<LearnRecord[]>([])
+  const [error, setError] = useState<boolean>(false)
   const [totalLearnTime, setTotalLearnTime] = useState(0)
 
-  const onChangeLearnTitle = (event) => {
+  const onChangeLearnTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setInputLearnTitle(event.target.value)
   }
 
-  const onChangeLearnTime = (event) => {
+  const onChangeLearnTime = (event :ChangeEvent<HTMLInputElement>) => {
     setInputLearnTime(parseInt(event.target.value))
   }
 
@@ -28,14 +32,13 @@ export const App = () => {
     setRecords([...records, { title: inputLearnTitle, time: inputLearnTime}])
     
     setInputLearnTitle('')
-    setInputLearnTime('')
+    setInputLearnTime(0)
   }
   
   useEffect(() => {
-    console.log(records);
     const newTotal = records.reduce((total, value) => total + value.time, 0)
     setTotalLearnTime(newTotal)
-  }, [records])
+  }, [records])  
 
   return (
     <div className="App">
@@ -47,7 +50,7 @@ export const App = () => {
           onChangeTitle={onChangeLearnTitle}
           onChangeTime={onChangeLearnTime} 
         />
-        
+
         <button onClick={onClickRegister}>登録</button>
         {error && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
         <ul> 
