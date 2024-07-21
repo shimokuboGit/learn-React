@@ -1,6 +1,6 @@
 export const InputLearnRecord = (props) => {
 
-  const {inputTitle, inputTime, onChangeTitle, onChangeTime} = props
+  const { inputTitle, inputTime, onChangeTitle, onChangeTime } = props
 
   return (
     <>

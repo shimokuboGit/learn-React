@@ -1,6 +1,8 @@
-export const Button = (props: { text: string }) => {
-  const { text } = props
+export const Button = (props) => {
+  const { text, onClickRemove } = props
   return (
-    <button>{text}</button>
+    <>
+      <button onClick={onClickRemove}>{text}</button>
+    </>
   )
 }

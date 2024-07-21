@@ -1,21 +1,26 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { Database } from './database.types';
 import { useEffect, useState, ChangeEvent } from 'react';
 import './App.css';
 import { InputLearnRecord } from './components/InputLearnRecord';
 import { LearnRecord } from './domain/LearnRecord';
+import { Button } from './components/atoms/Button';
+import { LearnContent } from './components/molecules/LearnContent';
+import { LearnContents } from './components/organisms/LearnContents';
+import { v4 as uuidv4 } from 'uuid';
 
 const supabase = createClient<Database>(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_KEY
 )
+
 export const App = () => {
 
   useEffect(() => {
     const fetchLearnRecord = async () => {
       const { data, error } = await supabase.from("study-record").select()
       const result: LearnRecord[] = data?.map((d) => (
-        {title: d.title, time: d.time}
+        {id: d.id, title: d.title, time: d.time}
       )) || []
       setRecords(result)
       setLearnRecordIsLoading(false)
@@ -29,7 +34,6 @@ export const App = () => {
   const [isError, setIsError] = useState<boolean>(false)
   const [learnRecordisLoading, setLearnRecordIsLoading] = useState<boolean>(true)
   const [totalLearnTime, setTotalLearnTime] = useState(0)
-  
 
   const onChangeLearnTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setInputLearnTitle(event.target.value)
@@ -46,11 +50,18 @@ export const App = () => {
     }
     setIsError(false)
 
-    setRecords([...records, { title: inputLearnTitle, time: inputLearnTime}])
-    await supabase.from("study-record").insert({ title: inputLearnTitle, time: inputLearnTime })
+    const uuid = uuidv4()
+    setRecords([...records, { id: uuid, title: inputLearnTitle, time: inputLearnTime}])
+    await supabase.from("study-record").insert({ id: uuid, title: inputLearnTitle, time: inputLearnTime })
     
     setInputLearnTitle('')
     setInputLearnTime(0)
+  }
+
+  const onClickRemove = async (id: string) => {
+    const newRecords = records.filter(record => record.id !== id)
+    setRecords(newRecords)
+    await supabase.from("study-record").delete().eq('id', id)
   }
   
   useEffect(() => {
@@ -75,12 +86,9 @@ export const App = () => {
           <button onClick={onClickRegister}>登録</button>
           {isError && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
           <ul> 
-          {records.map((record, index) => (
-            <li key={index}>
-              <p>{record.title} {record.time}時間</p>
-            </li>
-          ))}
+            <LearnContents records={records} onClickRemove={onClickRemove} />
           </ul>
+
           <div>
             合計時間: {totalLearnTime}/1000(h)
           </div>
