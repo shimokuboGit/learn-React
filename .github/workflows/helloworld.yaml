@@ -5,6 +5,6 @@ jobs:
   build app:
     runs-on: ubuntu-latest
     steps:
-      - run: cd /learning-management-app:
-      - run: npm run build:
-      - run: firebase deploy:
+      - run: cd /learning-management-app
+      - run: npm run build
+      - run: firebase deploy
