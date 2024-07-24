@@ -2,7 +2,7 @@ import { LearnRecord } from "../../domain/LearnRecord"
 import { Button } from "../atoms/Button"
 import { styled } from "styled-components"
 
-export const LearnContent = (props: {index: string, record: LearnRecord, onClickRemove}) => {
+export const LearnContent = (props: {index: string, record: LearnRecord, onClickRemove: any}) => {
   const { index, record, onClickRemove } = props
   return (
     <SContainer>

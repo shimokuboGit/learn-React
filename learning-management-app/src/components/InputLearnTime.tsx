@@ -1,4 +1,4 @@
-export const InputLearnTime = (props) => {
+export const InputLearnTime = (props: { inputText: any; onChange: any; }) => {
 
   const {inputText, onChange} = props
   console.log(inputText);

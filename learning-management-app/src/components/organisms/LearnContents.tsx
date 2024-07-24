@@ -1,7 +1,7 @@
 import { LearnRecords, LearnRecord } from "../../domain/LearnRecord"
 import { LearnContent } from "../molecules/LearnContent"
 
-export const LearnContents = (props: {records: LearnRecords, onClickRemove}) => {
+export const LearnContents = (props: {records: LearnRecords, onClickRemove: any}) => {
   const { records, onClickRemove } = props
   return (
     <>

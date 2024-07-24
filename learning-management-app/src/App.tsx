@@ -4,8 +4,6 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import './App.css';
 import { InputLearnRecord } from './components/InputLearnRecord';
 import { LearnRecord } from './domain/LearnRecord';
-import { Button } from './components/atoms/Button';
-import { LearnContent } from './components/molecules/LearnContent';
 import { LearnContents } from './components/organisms/LearnContents';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,7 +16,7 @@ export const App = () => {
 
   useEffect(() => {
     const fetchLearnRecord = async () => {
-      const { data, error } = await supabase.from("study-record").select()
+      const { data } = await supabase.from("study-record").select()
       const result: LearnRecord[] = data?.map((d) => (
         {id: d.id, title: d.title, time: d.time}
       )) || []
@@ -75,7 +73,7 @@ export const App = () => {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>学習記録一覧</h1>
+          <h1>LEARNING RECORD</h1>
           <InputLearnRecord 
             inputTitle={inputLearnTitle}
             inputTime={inputLearnTime}

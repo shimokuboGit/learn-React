@@ -1,4 +1,4 @@
-export const InputLearnRecord = (props) => {
+export const InputLearnRecord = (props: { inputTitle: any; inputTime: any; onChangeTitle: any; onChangeTime: any }) => {
 
   const { inputTitle, inputTime, onChangeTitle, onChangeTime } = props
 
