@@ -1,6 +1,6 @@
 name: Hello World
 on:
-  workflow_despatch:
+  workflow_dispatch:
 jobs:
   say_hello:
     runs-on: ubuntu-latest
