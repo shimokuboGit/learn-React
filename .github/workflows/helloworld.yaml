@@ -2,7 +2,7 @@ name: Hello World
 on:
   push:
 jobs:
-  build app:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - run: cd /learning-management-app
