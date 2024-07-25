@@ -14,5 +14,6 @@ jobs:
     - run: npm run build
       working-directory: learning-management-app
     - run: npm install -g firebase
+      working-directory: learning-management-app
     - run: firebase deploy
       working-directory: learning-management-app
