@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: tree
-    - users: actions/checkout@v4
+    - uses: actions/checkout@v4
     - run: tree
     - run: cd learning-management-app
     # - run: npm run build
