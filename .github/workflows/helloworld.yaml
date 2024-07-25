@@ -1,4 +1,4 @@
-name: Hello World
+name: Sample
 on:
   push:
 jobs:
@@ -9,5 +9,5 @@ jobs:
     - uses: actions/checkout@v4
     - run: tree
     - run: cd learning-management-app
-    # - run: npm run build
-    # - run: firebase deploy
+    - run: npm run build
+    - run: firebase deploy
