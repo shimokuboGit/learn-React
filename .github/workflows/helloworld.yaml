@@ -5,8 +5,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt install tree
-      - run: tree
-      - run: cd learning-management-app
-      # - run: npm run build
-      # - run: firebase deploy
+    - run: tree
+    - users: actions/checkout@v4
+    - run: tree
+    - run: cd learning-management-app
+    # - run: npm run build
+    # - run: firebase deploy
