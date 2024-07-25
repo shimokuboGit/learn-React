@@ -9,5 +9,6 @@ jobs:
     - uses: actions/checkout@v4
     - run: tree
     - run: cd learning-management-app
+    - run: npm install
     - run: npm run build
     - run: firebase deploy
