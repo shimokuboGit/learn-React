@@ -5,7 +5,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo pwd
+      - run: sudo apt install tree
+      - run: tree
       - run: cd learning-management-app
       # - run: npm run build
       # - run: firebase deploy
