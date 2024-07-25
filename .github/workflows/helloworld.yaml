@@ -13,7 +13,7 @@ jobs:
       working-directory: learning-management-app
     - run: npm run build
       working-directory: learning-management-app
-    - run: npm install -g firebase
+    - run: npm install -g firebase-tools
       working-directory: learning-management-app
     - run: firebase deploy
       working-directory: learning-management-app
