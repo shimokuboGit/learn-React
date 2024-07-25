@@ -10,5 +10,8 @@ jobs:
     - run: tree
     - run: cd learning-management-app
     - run: npm install
+      working-directory: learning-management-app
     - run: npm run build
+      working-directory: learning-management-app
     - run: firebase deploy
+      working-directory: learning-management-app
