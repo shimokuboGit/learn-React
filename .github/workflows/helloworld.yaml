@@ -13,7 +13,7 @@ jobs:
       working-directory: learning-management-app
 
     - name: build
-      run|
+      run:
         touch .env
         npm run build
       env:
