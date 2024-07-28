@@ -73,7 +73,7 @@ export const App = () => {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>LEARNING RECORD</h1>
+          <h1>LEARNING RECORD2</h1>
           <InputLearnRecord 
             inputTitle={inputLearnTitle}
             inputTime={inputLearnTime}
