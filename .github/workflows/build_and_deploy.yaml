@@ -2,10 +2,8 @@ name: Build and Deploy
 on:
   [push, workflow_dispatch]
 env:
-  # VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-  # VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
-  VITE_SUPABASE_URL: https://ogmrlrvbnpczlkhntzgp.supabase.co
-  VITE_SUPABASE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9nbXJscnZibnBjemxraG50emdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwMzY5NDYsImV4cCI6MjAzNjYxMjk0Nn0.1ZtXpr1PO4C5LPqHYjOCMpgkfAiBcx1dgomRlQXnUO8
+  VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+  VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
 
 jobs:
   build-and-deploy:
