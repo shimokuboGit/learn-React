@@ -4,6 +4,7 @@ on:
 env:
   VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
   VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
+  MESSAGE: "test_message"
 
 jobs:
   build-and-deploy:
@@ -23,6 +24,7 @@ jobs:
         echo "this is env"
         echo "$VITE_SUPABASE_URL"
         echo "$VITE_SUPABASE_KEY"
+        echo "$MESSAGE"
       working-directory: learning-management-app
 
     - run: npm install -g firebase-tools
