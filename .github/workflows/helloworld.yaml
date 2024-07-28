@@ -15,8 +15,9 @@ jobs:
       env:
         VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
         VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
-      run: echo $VITE_SUPABASE_URL
-      run: npm run build
+      run: 
+        | echo $VITE_SUPABASE_URL
+        | npm run build
       working-directory: learning-management-app
     - run: npm install -g firebase-tools
       working-directory: learning-management-app
