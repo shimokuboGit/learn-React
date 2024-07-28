@@ -2,8 +2,8 @@ name: Build and Deploy
 on:
   [push, workflow_dispatch]
 env:
-  VITE_SUPABASE_URL: "${{ secrets.VITE_SUPABASE_URL }}"
-  VITE_SUPABASE_KEY: "${{ secrets.VITE_SUPABASE_KEY }}"
+  VITE_SUPABASE_URL: ${{ secrets.learning-management-app.VITE_SUPABASE_URL }}
+  VITE_SUPABASE_KEY: ${{ secrets.learning-management-app.VITE_SUPABASE_KEY }}
   MESSAGE: "test_message"
 
 jobs:
