@@ -1,6 +1,6 @@
 name: Sample
 on:
-  push:
+  [push, create]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
