@@ -13,6 +13,7 @@ jobs:
       working-directory: learning-management-app
     - env:
       VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+    - env:
       VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
     - run: npm run build
       working-directory: learning-management-app
