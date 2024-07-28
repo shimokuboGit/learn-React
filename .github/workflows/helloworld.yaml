@@ -11,12 +11,13 @@ jobs:
     - run: cd learning-management-app
     - run: npm install
       working-directory: learning-management-app
-    - name:
+    - name: build
       env:
         name: learning-managenet-app
       run: |
+        echo "asdfasdf"
         echo "VITE_SUPABASE_URL is: $VITE_SUPABASE_URL"
-        echo "vire supabase url2 is: ${{ secrets.VITE_SUPABASE_URL }}  "
+        echo "vire supabase url2 is: ${{ secrets.VITE_SUPABASE_URL }}"
         npm run build
       working-directory: learning-management-app
     - run: npm install -g firebase-tools
