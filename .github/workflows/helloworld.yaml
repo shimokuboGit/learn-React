@@ -1,6 +1,9 @@
 name: Build and Deploy
 on:
   [push, workflow_dispatch]
+env:
+  VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+  VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
