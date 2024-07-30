@@ -35,16 +35,3 @@ jobs:
     #   working-directory: learning-management-app
     # - run: firebase deploy --token 1//0e_3b83r3hNyeCgYIARAAGA4SNwF-L9IrBiD9pa77TP9meyWfC6uky5KyEud12m5s6hlyLu_AgH-Q4WKP4_l_pqJYwiJeAC3ShcY
     #   working-directory: learning-management-app
-
-
-name: Build and Deploy
-on:
-  [push, workflow_dispatch]
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: test-environment
-    steps:
-    - run: echo $ {{ secrets.VITE_SUPABASE_URL }}
-    - run: echo $ {{ secrets.VITE_SUPABASE_KEY }}
