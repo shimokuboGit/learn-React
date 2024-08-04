@@ -7,5 +7,15 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "module": "es2022",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["jest", "node", "@testing-library/react"]
+  },
+  "include": ["./src/**/*.ts", "src/tests/App.test.tsx", "src/**/*.tsx", "src/**/*.test.tsx"],
+  "types": ["@testing-library/jest-dom"],
+  "moduleResolution": "node"
 }
