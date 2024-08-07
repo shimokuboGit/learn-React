@@ -8,8 +8,8 @@ import { LearnContents } from './components/organisms/LearnContents';
 import { v4 as uuidv4 } from 'uuid';
 
 const supabase = createClient<Database>(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_KEY
+  process.env.VITE_SUPABASE_URL!,
+  process.env.VITE_SUPABASE_KEY!
 )
 
 export const App = () => {
@@ -95,3 +95,14 @@ export const App = () => {
     );
   }
 }
+
+
+// function App() {
+//   return (
+//     <>
+//       <h1>Hello World</h1>
+//     </>
+//   );
+// }
+
+// export default App;
