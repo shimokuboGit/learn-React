@@ -27,6 +27,11 @@ jobs:
         echo "$VITE_SUPABASE_KEY"
       working-directory: learning-management-app
 
+    - name: run test
+      run: |
+        npm run test
+      working-directory: learning-management-app
+      
     - run: npm install -g firebase-tools
       working-directory: learning-management-app
     - run: firebase deploy --token 1//0e_3b83r3hNyeCgYIARAAGA4SNwF-L9IrBiD9pa77TP9meyWfC6uky5KyEud12m5s6hlyLu_AgH-Q4WKP4_l_pqJYwiJeAC3ShcY
