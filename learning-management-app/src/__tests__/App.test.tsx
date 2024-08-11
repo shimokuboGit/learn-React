@@ -7,6 +7,7 @@ describe("test", () => {
   render(<App />)
 
   test("view title", async () => {
+    await waitFor(() => screen.getByText("LEARNING RECORD3"))
     expect(await screen.findByText("LEARNING RECORD3")).toBeInTheDocument();
   })
 
