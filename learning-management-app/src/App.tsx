@@ -42,9 +42,10 @@ export const App = () => {
   }
 
   const onClickRegister = async () => {
-    if ((inputLearnTitle || inputLearnTime) === '') {
+    if ((inputLearnTitle) === '') {
       setIsError(true)
       return
+      
     }
     setIsError(false)
 
