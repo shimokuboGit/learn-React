@@ -9,7 +9,7 @@ export async function GetAllTodos(): Promise<Todo[]> {
   }
 
   const result = response.data.map((todo) => {
-    return new Todo(
+    return Todo.newTodo(
       todo.id,
       todo.title,
       todo.done,
