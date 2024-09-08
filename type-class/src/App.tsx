@@ -5,20 +5,27 @@ import { Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } 
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   
   useEffect(() => {
     const getAllTodos = async () => {
       const todosData: Todo[] = await GetAllTodos()
+
       setTodos(todosData)
+      setIsLoading(false)
     }
 
     getAllTodos()
   }, [])
 
+  if (isLoading) {
+    return <p>Loading ...</p>
+  }
   return (
     <>
+      <h1 data-testid="title">TODO LIST</h1>
       <TableContainer>
-        <Table variant='simple'>
+        <Table variant='simple' data-testid="table">
           <TableCaption>Imperial to metric conversion factors</TableCaption>
           <Thead>
             <Tr>
