@@ -33,7 +33,7 @@ function App() {
               <Th>Done</Th>
               <Th isNumeric>CreatedAt</Th>
             </Tr>
-          </Thead>
+          </Thead>  
           <Tbody>
             {todos.map((todo) => (
               <Tr key={todo.id}>
