@@ -22,7 +22,7 @@ export const App = () => {
       // )) || []
 
       const result: LearnRecord[] | undefined = data?.map((d) => {
-        return new LearnRecord(d.id, d.title, d.time.toString())
+        return new LearnRecord(d)
       })
       setRecords(result || [])
       setLearnRecordIsLoading(false)
