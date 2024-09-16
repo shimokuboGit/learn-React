@@ -1,7 +1,3 @@
-export type LearnRecord = {
-  id: string,
-  title: string,
-  time: number
+export class LearnRecord {
+  constructor(public id: string, public title: string, public time: string) {}
 }
-
-export type LearnRecords = LearnRecord[]

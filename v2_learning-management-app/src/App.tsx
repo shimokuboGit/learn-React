@@ -17,10 +17,14 @@ export const App = () => {
   useEffect(() => {
     const fetchLearnRecord = async () => {
       const { data } = await supabase.from("study-record").select()
-      const result: LearnRecord[] = data?.map((d) => (
-        {id: d.id, title: d.title, time: d.time}
-      )) || []
-      setRecords(result)
+      // const result: LearnRecord[] = data?.map((d) => (
+      //   {id: d.id, title: d.title, time: d.time}
+      // )) || []
+
+      const result: LearnRecord[] | undefined = data?.map((d) => {
+        return new LearnRecord(d.id, d.title, d.time.toString())
+      })
+      setRecords(result || [])
       setLearnRecordIsLoading(false)
     }
     fetchLearnRecord()
