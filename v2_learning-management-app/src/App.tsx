@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button, ChakraProvider } from '@chakra-ui/react'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <Button>asdf</Button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
