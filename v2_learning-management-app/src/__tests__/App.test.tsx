@@ -5,8 +5,49 @@ import { App } from "../App";
 import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 import { LearnRecord } from '../domain/LearnRecord';
 
+jest.mock("../hooks/useSupabaseClient.ts", () => {
+  return {
+    useSupabaseClient: () => ({
+      supabaseClient: {
+        from: jest.fn().mockReturnValue({
+          select: jest.fn().mockResolvedValue({
+            data: [
+              {
+                id: "1",
+                title: "test1",
+                time: 2
+              }
+            ]
+          }),
+          insert: jest.fn().mockResolvedValue({
+            data: [
+              {
+                id: "2",
+                title: "jest",
+                time: 1
+              }
+            ]
+          }),
+          delete: jest.fn().mockReturnValue({
+            eq: jest.fn().mockResolvedValue({
+              data: {
+                id: "1",
+                title: "test1",
+                time: 2
+              }
+            })
+          })
+        })
+      }
+    })
+  }
+})
+
 describe("test", () => {
-  render(<App />)
+  // render(<App />)
+  beforeEach(() => {
+    render(<App />)
+  })
 
   test("ローディングが見れること", async() => {
     expect(await screen.findByText("Loading..."))
@@ -20,8 +61,7 @@ describe("test", () => {
   test("TODOリストを見ることができる", async() => {
     await waitFor(() => screen.getByText("LEARNING RECORD3"))
     const records = screen.getAllByRole("listitem")
-    console.log(records)
-    expect(records.length).toBeGreaterThan(1)
+    expect(records.length).toBe(1)
   })
 
   test("登録ボタンを見ることができる", async() => {
@@ -30,15 +70,14 @@ describe("test", () => {
   })
 
   test("記録を登録できること", async () => {
-    render(<App />)
-    await waitFor(() => screen.getByText("新規登録"))
+    await waitFor(() => screen.getByTestId("register-button"))
 
-    expect(screen.getByText("新規登録")).toBeInTheDocument()
-    fireEvent.click(screen.getByRole("button", { name: "新規登録"}))
+    expect(screen.getByTestId("register-button")).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId("register-button"))
 
     const inputTitleElement = screen.getByLabelText("学習内容")
     expect(inputTitleElement).toBeInTheDocument()
-    await userEvent.type(inputTitleElement, "jest input")
+    await userEvent.type(inputTitleElement, "jest")
   
     const inputTimeElement = screen.getByLabelText("学習時間")
     expect(inputTimeElement).toBeInTheDocument()
@@ -46,30 +85,65 @@ describe("test", () => {
 
     await userEvent.click(screen.getByTestId("modal-register-button"))
 
-    const records = screen.getAllByText("jest input / 1時間")
-    expect(records.length).toBeGreaterThan(1)
+    const records = screen.getAllByText("jest / 1時間")
+    expect(records[0]).toBeVisible()
   })
 
   test("記録を削除できること", async () => {
-    render(<App />)
     await waitFor(() => screen.getByText("LEARNING RECORD3"))
 
-    const targetRecord = screen.getByText("jest / 3時間")
+    expect(screen.getByText("test1 / 2時間")).toBeInTheDocument()
+
+    const targetRecord = screen.getByText("test1 / 2時間")
 
     const deleteButton = targetRecord.closest("div")?.querySelector("button")
     await userEvent.click(deleteButton!)
 
-    const records = screen.getAllByRole("listitem")
-    expect(records.length).toBe(3)
+    expect(targetRecord).not.toBeInTheDocument()
   })
 
-  test("記録を入力せずに登録を押すとエラーが表示される", async () => {
-    render(<App />)
-    await waitFor(() => screen.getByText("LEARNING RECORD3"))
-    const registerButton = screen.getByText("登録")
-    await userEvent.click(registerButton)
+  test("内容を入力せずに登録を押すとエラーが表示される", async () => {
+    await waitFor(() => screen.getByTestId("register-button"))
 
-    const errorMessage = screen.getByText("入力されていない項目があります")
-    expect(errorMessage).toHaveTextContent("入力されていない項目があります")
+    expect(screen.getByTestId("register-button")).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId("register-button"))
+  
+    const inputTimeElement = screen.getByLabelText("学習時間")
+    expect(inputTimeElement).toBeInTheDocument()
+    await userEvent.type(inputTimeElement, "1")
+
+    await userEvent.click(screen.getByTestId("modal-register-button"))
+
+    expect(screen.getByText("内容の入力は必須です")).toBeInTheDocument()
+  })
+
+  test("時間を入力せずに登録を押すとエラーが表示される", async () => {
+    await waitFor(() => screen.getByTestId("register-button"))
+
+    expect(screen.getByTestId("register-button")).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId("register-button"))
+  
+    const inputTitleElement = screen.getByLabelText("学習内容")
+    expect(inputTitleElement).toBeInTheDocument()
+    await userEvent.type(inputTitleElement, "test")
+
+    await userEvent.click(screen.getByTestId("modal-register-button"))
+
+    expect(screen.getByText("時間の入力は必須です")).toBeInTheDocument()
+  })
+
+  test("時間が0以下の時に登録を押すとエラーが表示される", async () => {
+    await waitFor(() => screen.getByTestId("register-button"))
+
+    expect(screen.getByTestId("register-button")).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId("register-button"))
+  
+    const inputTimeElement = screen.getByLabelText("学習時間")
+    expect(inputTimeElement).toBeInTheDocument()
+    await userEvent.type(inputTimeElement, "0")
+
+    await userEvent.click(screen.getByTestId("modal-register-button"))
+
+    expect(screen.getByText("時間は0以上である必要があります")).toBeInTheDocument()
   })
 })

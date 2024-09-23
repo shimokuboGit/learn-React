@@ -75,7 +75,7 @@ export const App = () => {
               onChangeTitle={onChangeLearnTitle}
               onChangeTime={onChangeLearnTime} 
             /> */}
-            <Button onClick={onClickModalOpen}>新規登録</Button>
+            <Button data-testid="register-button" onClick={onClickModalOpen}>新規登録</Button>
             {isError && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
             <ul> 
               <LearnContents records={records} onClickRemove={onClickRemove} />
