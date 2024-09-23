@@ -26,7 +26,7 @@ describe("test", () => {
 
   test("登録ボタンを見ることができる", async() => {
     await waitFor(() => screen.getByText("LEARNING RECORD3"))
-    expect(screen.getByText("登録")).toBeInTheDocument()
+    expect(screen.getByText("新規登録")).toBeInTheDocument()
   })
 
   test("記録を登録できること", async () => {

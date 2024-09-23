@@ -10,16 +10,13 @@ import { InputLearnModal } from './components/molecules/InputLearnModal';
 import { v4 as uuidv4 } from 'uuid';
 import { useSupabaseClient } from './hooks/useSupabaseClient';
 
-const supabase = createClient<Database>(
-  process.env.VITE_SUPABASE_URL!,
-  process.env.VITE_SUPABASE_KEY!
-)
 
 export const App = () => {
+  const { supabaseClient } = useSupabaseClient()
 
   useEffect(() => {
     const fetchLearnRecord = async () => {
-      const { data } = await supabase.from("study-record").select()
+      const { data } = await supabaseClient.from("study-record").select()
 
       const result: LearnRecord[] | undefined = data?.map((d) => {
         return new LearnRecord(d)
@@ -30,7 +27,6 @@ export const App = () => {
     fetchLearnRecord()
   }, [])
   
-  const { supabaseClient } = useSupabaseClient()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [inputLearnTitle, setInputLearnTitle] = useState('')
@@ -55,7 +51,7 @@ export const App = () => {
   const onClickRemove = async (id: string) => {
     const newRecords = records.filter(record => record.id !== id)
     setRecords(newRecords)
-    await supabase.from("study-record").delete().eq('id', id)
+    await supabaseClient.from("study-record").delete().eq('id', id)
   }
   
   useEffect(() => {
