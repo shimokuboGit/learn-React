@@ -11,3 +11,5 @@ export class LearnRecord {
     Object.assign(this, init)
   }
 }
+
+export type LearnRecords = LearnRecord[]

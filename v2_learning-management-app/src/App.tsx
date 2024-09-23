@@ -11,8 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSupabaseClient } from './hooks/useSupabaseClient';
 
 const supabase = createClient<Database>(
-  import.meta.env.VITE_SUPABASE_URL!,
-  import.meta.env.VITE_SUPABASE_KEY!
+  process.env.VITE_SUPABASE_URL!,
+  process.env.VITE_SUPABASE_KEY!
 )
 
 export const App = () => {
@@ -73,13 +73,13 @@ export const App = () => {
         <div className="App">
           <header className="App-header">
             <h1>LEARNING RECORD3</h1>
-            <InputLearnRecord 
+            {/* <InputLearnRecord 
               inputTitle={inputLearnTitle}
               inputTime={inputLearnTime}
               onChangeTitle={onChangeLearnTitle}
               onChangeTime={onChangeLearnTime} 
-            />
-            <Button onClick={onClickModalOpen}>登録</Button>
+            /> */}
+            <Button onClick={onClickModalOpen}>新規登録</Button>
             {isError && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
             <ul> 
               <LearnContents records={records} onClickRemove={onClickRemove} />

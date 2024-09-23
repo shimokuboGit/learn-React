@@ -1,34 +1,53 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from "@testing-library/user-event";
 import { App } from "../App";
+import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
+import { LearnRecord } from '../domain/LearnRecord';
 
 describe("test", () => {
   render(<App />)
 
-  test("view title", async () => {
+  test("ローディングが見れること", async() => {
+    expect(await screen.findByText("Loading..."))
+  })
+  
+  test("タイトルが見れること", async () => {
     await waitFor(() => screen.getByText("LEARNING RECORD3"))
     expect(await screen.findByText("LEARNING RECORD3")).toBeInTheDocument();
   })
 
+  test("TODOリストを見ることができる", async() => {
+    await waitFor(() => screen.getByText("LEARNING RECORD3"))
+    const records = screen.getAllByRole("listitem")
+    console.log(records)
+    expect(records.length).toBeGreaterThan(1)
+  })
+
+  test("登録ボタンを見ることができる", async() => {
+    await waitFor(() => screen.getByText("LEARNING RECORD3"))
+    expect(screen.getByText("登録")).toBeInTheDocument()
+  })
+
   test("記録を登録できること", async () => {
     render(<App />)
-    await waitFor(() => screen.getByText("LEARNING RECORD3"))
-    // await screen.debug(screen.getByPlaceholderText('学習内容'))
-    const inputTitle = screen.getByPlaceholderText("学習内容")
-    await userEvent.type(inputTitle, "jest")
+    await waitFor(() => screen.getByText("新規登録"))
 
-    const inputTime = screen.getByPlaceholderText("学習時間")
-    await userEvent.type(inputTime, "3")
+    expect(screen.getByText("新規登録")).toBeInTheDocument()
+    fireEvent.click(screen.getByRole("button", { name: "新規登録"}))
 
-    expect(inputTitle).toHaveValue("jest")
-    expect(inputTime).toHaveValue(3)
+    const inputTitleElement = screen.getByLabelText("学習内容")
+    expect(inputTitleElement).toBeInTheDocument()
+    await userEvent.type(inputTitleElement, "jest input")
+  
+    const inputTimeElement = screen.getByLabelText("学習時間")
+    expect(inputTimeElement).toBeInTheDocument()
+    await userEvent.type(inputTimeElement, "1")
 
-    const registerButton = screen.getByText("登録")
-    await userEvent.click(registerButton)
+    await userEvent.click(screen.getByTestId("modal-register-button"))
 
-    const records = screen.getAllByRole("listitem")
-    expect(records.length).toBe(4)
+    const records = screen.getAllByText("jest input / 1時間")
+    expect(records.length).toBeGreaterThan(1)
   })
 
   test("記録を削除できること", async () => {

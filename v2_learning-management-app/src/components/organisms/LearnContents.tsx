@@ -7,7 +7,7 @@ export const LearnContents = (props: {records: LearnRecords, onClickRemove: any}
     <>
       {records.map((record: LearnRecord) => (
         <li key={record.id}>
-          <LearnContent index={record.id} record={record} onClickRemove={onClickRemove} />
+          <LearnContent index={record.id!} record={record} onClickRemove={onClickRemove} />
         </li>
       ))}
     </>

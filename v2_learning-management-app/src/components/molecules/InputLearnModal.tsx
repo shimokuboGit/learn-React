@@ -83,7 +83,7 @@ export const InputLearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearn
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} type="submit">登録</Button>
+            <Button data-testid="modal-register-button" colorScheme="blue" mr={3} type="submit">登録</Button>
             <Button onClick={() => {onClose(); reset();}}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
