@@ -96,7 +96,7 @@ describe("test", () => {
 
     const targetRecord = screen.getByText("test1 / 2時間")
 
-    const deleteButton = targetRecord.closest("div")?.querySelector("button")
+    const deleteButton = screen.getByRole("button", { name: "削除" })
     await userEvent.click(deleteButton!)
 
     expect(targetRecord).not.toBeInTheDocument()
@@ -145,5 +145,14 @@ describe("test", () => {
     await userEvent.click(screen.getByTestId("modal-register-button"))
 
     expect(screen.getByText("時間は0以上である必要があります")).toBeInTheDocument()
+  })
+
+  test("編集ボタンを押すと記録編集モーダルを開くことが出来る", async() => {
+    await waitFor(() => screen.getByTestId("register-button"))
+
+    const editButton = screen.getByRole("button", { name: "編集" })
+    await userEvent.click(editButton)
+
+    expect(screen.getByText("記録編集")).toBeInTheDocument()
   })
 })

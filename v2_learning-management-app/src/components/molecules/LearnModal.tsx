@@ -11,6 +11,7 @@ type Props = {
   onClose: () => void;
   records: LearnRecord[];
   setLearnRecordFunc: (records: LearnRecord[], id: string, title: string, time: number) => void;
+  isEdit?: boolean;
 };
 
 type Inputs = {
@@ -18,7 +19,7 @@ type Inputs = {
   time: number;
 }
 
-export const InputLearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecordFunc }) => {
+export const LearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecordFunc, isEdit=false }) => {
 
   const { supabaseClient } = useSupabaseClient()
   const [inputTitle, setInputTitle] = useState('')
@@ -57,7 +58,7 @@ export const InputLearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearn
       <ModalOverlay />
       <form onSubmit={handleSubmit(onRegister)}>
         <ModalContent>
-          <ModalHeader>学習記録</ModalHeader>
+          <ModalHeader>{isEdit ? "記録編集" : "新規登録"}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>

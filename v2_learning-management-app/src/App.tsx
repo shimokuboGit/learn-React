@@ -6,7 +6,7 @@ import { InputLearnRecord } from './components/InputLearnRecord';
 import { LearnRecord } from './domain/LearnRecord';
 import { LearnContents } from './components/organisms/LearnContents';
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from '@chakra-ui/react';
-import { InputLearnModal } from './components/molecules/InputLearnModal';
+import { LearnModal } from './components/molecules/LearnModal';
 import { v4 as uuidv4 } from 'uuid';
 import { useSupabaseClient } from './hooks/useSupabaseClient';
 
@@ -36,14 +36,6 @@ export const App = () => {
   const [learnRecordisLoading, setLearnRecordIsLoading] = useState<boolean>(true)
   const [totalLearnTime, setTotalLearnTime] = useState(0)
 
-  const onChangeLearnTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputLearnTitle(event.target.value)
-  }
-
-  const onChangeLearnTime = (event :ChangeEvent<HTMLInputElement>) => {
-    setInputLearnTime(parseInt(event.target.value))
-  }
-
   const setLearnRecordFunc = (records: LearnRecord[], id: string, title: string, time: number): void => {
     setRecords([...records, { id, title, time }])
   }
@@ -69,12 +61,6 @@ export const App = () => {
         <div className="App">
           <header className="App-header">
             <h1>LEARNING RECORD3</h1>
-            {/* <InputLearnRecord 
-              inputTitle={inputLearnTitle}
-              inputTime={inputLearnTime}
-              onChangeTitle={onChangeLearnTitle}
-              onChangeTime={onChangeLearnTime} 
-            /> */}
             <Button data-testid="register-button" onClick={onClickModalOpen}>新規登録</Button>
             {isError && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
             <ul> 
@@ -86,7 +72,7 @@ export const App = () => {
             </div>
           </header>
         </div>
-        <InputLearnModal isOpen={isOpen} onClose={onClose} records={records} setLearnRecordFunc={setLearnRecordFunc}/>
+        <LearnModal isOpen={isOpen} onClose={onClose} records={records} setLearnRecordFunc={setLearnRecordFunc}/>
       </>
     );
   }
