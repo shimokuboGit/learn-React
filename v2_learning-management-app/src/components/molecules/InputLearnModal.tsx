@@ -67,18 +67,18 @@ export const InputLearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearn
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>学習時間</FormLabel>
-              <Input {...register("time", { 
+              <Input {...register("time", 
+                {
                   required: "時間の入力は必須です",
                   pattern: {
                     value: /^[0-9]+$/,
                     message: "時間の入力は必須です",
                   },
-                min: {
-                  value: 1,
-                  message: "時間は0以上である必要があります"
-                }
-              })} type="number" onChange={onChangeInputTime} />
-              {/* {errors.time && (<p>時間の入力は必須です</p>)} */}
+                  min: {
+                    value: 1,
+                    message: "時間は0以上である必要があります"
+                  }
+                })} type="number" onChange={onChangeInputTime} />
               {errors.time && (<p>{errors.time.message}</p>)}
             </FormControl>
           </ModalBody>
