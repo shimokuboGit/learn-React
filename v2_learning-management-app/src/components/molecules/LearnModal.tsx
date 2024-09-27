@@ -70,7 +70,7 @@ export const LearnModal: VFC<Props> = ({ isOpen, onClose, record, isEdit=false, 
               <Input
                 {...register("title", { required: true })}
                 onChange={onChangeInputTitle}
-                defaultValue={isEdit ? record.title : ""}
+                defaultValue={isEdit ? record!.title : ""}
               />
               {errors.title && (<p>内容の入力は必須です</p>)}
             </FormControl>
@@ -91,7 +91,7 @@ export const LearnModal: VFC<Props> = ({ isOpen, onClose, record, isEdit=false, 
                 })}
                 type="number"
                 onChange={onChangeInputTime}
-                defaultValue={isEdit ? record.time : ""}
+                defaultValue={isEdit ? record!.time : ""}
               />
               {errors.time && (<p>{errors.time.message}</p>)}
             </FormControl>

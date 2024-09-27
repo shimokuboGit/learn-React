@@ -25,18 +25,6 @@ export const useSetLearnRecord = () => {
   const onSetLearnRecords = async (record: LearnRecord): Promise<void> => {
     const { id, title, time } = record
 
-    // if (records.some((record) => record.id === id)) {
-    //   const newRecords: LearnRecord[] = records.map((record) =>
-    //   record.id === id
-    //     ? { ...record, title, time }
-    //     : record
-    //   )
-    //   newRecords.map((r) => console.log(r))
-    //   setRecords(newRecords)
-    // } else {
-    //   setRecords([...records, { id, title, time }])
-    // }
-
     setRecords((prevRecords) => {
       if (prevRecords.some((r) => r.id === id)) {
         return prevRecords.map((r) => 
@@ -50,5 +38,5 @@ export const useSetLearnRecord = () => {
     })
   }
 
-  return { records, onSetLearnRecords, learnRecordisLoading, setLearnRecordIsLoading };
+  return { records, setRecords, onSetLearnRecords, learnRecordisLoading, setLearnRecordIsLoading };
 }

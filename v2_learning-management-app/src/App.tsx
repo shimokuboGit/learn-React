@@ -13,16 +13,13 @@ import { useSetLearnRecord } from './hooks/useSetLearnRecord';
 export const App = () => {
   const { supabaseClient } = useSupabaseClient()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { records, onSetLearnRecords, learnRecordisLoading } = useSetLearnRecord()
-  // const [records, setRecords] = useState<LearnRecord[]>([])
+  const { records, setRecords, onSetLearnRecords, learnRecordisLoading } = useSetLearnRecord()
   const [isError, setIsError] = useState<boolean>(false)
-  // const [learnRecordisLoading, setLearnRecordIsLoading] = useState<boolean>(true)
   const [totalLearnTime, setTotalLearnTime] = useState(0)
 
   const onClickRemove = async (id: string) => {
     const newRecords = records.filter(record => record.id !== id)
-    // TODO
-    // setRecords(newRecords)
+    setRecords(newRecords)
     await supabaseClient.from("study-record").delete().eq('id', id)
   }
   
