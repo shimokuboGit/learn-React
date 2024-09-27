@@ -9,9 +9,9 @@ import { LearnRecord } from '../../domain/LearnRecord';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  records: LearnRecord[];
-  setLearnRecordFunc: (records: LearnRecord[], id: string, title: string, time: number) => void;
+  record?: LearnRecord;
   isEdit?: boolean;
+  onSetLearnRecords: (record: LearnRecord) => void;
 };
 
 type Inputs = {
@@ -19,7 +19,7 @@ type Inputs = {
   time: number;
 }
 
-export const LearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecordFunc, isEdit=false }) => {
+export const LearnModal: VFC<Props> = ({ isOpen, onClose, record, isEdit=false, onSetLearnRecords }) => {
 
   const { supabaseClient } = useSupabaseClient()
   const [inputTitle, setInputTitle] = useState('')
@@ -34,13 +34,17 @@ export const LearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecor
   }
 
   const onRegister = async () => {
-    if (inputTitle === '') {
-      return
+    if (isEdit) {
+      await supabaseClient
+        .from("study-record")
+        .update({title: inputTitle, time: inputTime})
+        .eq('id', record!.id!)
+      onSetLearnRecords(new LearnRecord({id: record!.id!, title: inputTitle, time: inputTime}))
+    } else {
+      const uuid = uuidv4()
+      await supabaseClient.from("study-record").insert({ id: uuid, title: inputTitle, time: inputTime })
+      onSetLearnRecords(new LearnRecord({id: uuid, title: inputTitle, time: inputTime}))
     }
-
-    const uuid = uuidv4()
-    await supabaseClient.from("study-record").insert({ id: uuid, title: inputTitle, time: inputTime })
-    setLearnRecordFunc(records, uuid, inputTitle, inputTime)
 
     reset()
     onClose()
@@ -63,13 +67,18 @@ export const LearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecor
           <ModalBody>
             <FormControl>
               <FormLabel>学習内容</FormLabel>
-              <Input {...register("title", { required: true })} onChange={onChangeInputTitle} />
+              <Input
+                {...register("title", { required: true })}
+                onChange={onChangeInputTitle}
+                defaultValue={isEdit ? record.title : ""}
+              />
               {errors.title && (<p>内容の入力は必須です</p>)}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>学習時間</FormLabel>
-              <Input {...register("time", 
-                {
+              <Input
+                {...register("time", 
+                  {
                   required: "時間の入力は必須です",
                   pattern: {
                     value: /^[0-9]+$/,
@@ -79,7 +88,11 @@ export const LearnModal: VFC<Props> = ({ isOpen, onClose, records, setLearnRecor
                     value: 1,
                     message: "時間は0以上である必要があります"
                   }
-                })} type="number" onChange={onChangeInputTime} />
+                })}
+                type="number"
+                onChange={onChangeInputTime}
+                defaultValue={isEdit ? record.time : ""}
+              />
               {errors.time && (<p>{errors.time.message}</p>)}
             </FormControl>
           </ModalBody>

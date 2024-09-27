@@ -3,46 +3,26 @@ import { Database } from './database.types';
 import { useEffect, useState, ChangeEvent } from 'react';
 // import './App.css';
 import { InputLearnRecord } from './components/InputLearnRecord';
-import { LearnRecord } from './domain/LearnRecord';
+import { LearnRecord, LearnRecords } from './domain/LearnRecord';
 import { LearnContents } from './components/organisms/LearnContents';
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import { LearnModal } from './components/molecules/LearnModal';
-import { v4 as uuidv4 } from 'uuid';
 import { useSupabaseClient } from './hooks/useSupabaseClient';
-
+import { useSetLearnRecord } from './hooks/useSetLearnRecord';
 
 export const App = () => {
   const { supabaseClient } = useSupabaseClient()
-
-  useEffect(() => {
-    const fetchLearnRecord = async () => {
-      const { data } = await supabaseClient.from("study-record").select()
-
-      const result: LearnRecord[] | undefined = data?.map((d) => {
-        return new LearnRecord(d)
-      })
-      setRecords(result || [])
-      setLearnRecordIsLoading(false)
-    }
-    fetchLearnRecord()
-  }, [])
-  
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const [inputLearnTitle, setInputLearnTitle] = useState('')
-  const [inputLearnTime, setInputLearnTime] = useState<number>(0);
-  const [records, setRecords] = useState<LearnRecord[]>([])
+  const { records, onSetLearnRecords, learnRecordisLoading } = useSetLearnRecord()
+  // const [records, setRecords] = useState<LearnRecord[]>([])
   const [isError, setIsError] = useState<boolean>(false)
-  const [learnRecordisLoading, setLearnRecordIsLoading] = useState<boolean>(true)
+  // const [learnRecordisLoading, setLearnRecordIsLoading] = useState<boolean>(true)
   const [totalLearnTime, setTotalLearnTime] = useState(0)
-
-  const setLearnRecordFunc = (records: LearnRecord[], id: string, title: string, time: number): void => {
-    setRecords([...records, { id, title, time }])
-  }
 
   const onClickRemove = async (id: string) => {
     const newRecords = records.filter(record => record.id !== id)
-    setRecords(newRecords)
+    // TODO
+    // setRecords(newRecords)
     await supabaseClient.from("study-record").delete().eq('id', id)
   }
   
@@ -64,7 +44,7 @@ export const App = () => {
             <Button data-testid="register-button" onClick={onClickModalOpen}>新規登録</Button>
             {isError && (<p style={{color: 'red'}}>入力されていない項目があります</p>)}
             <ul> 
-              <LearnContents records={records} onClickRemove={onClickRemove} />
+              <LearnContents records={records} onClickRemove={onClickRemove} onSetLearnRecords={onSetLearnRecords} />
             </ul>
 
             <div>
@@ -72,7 +52,7 @@ export const App = () => {
             </div>
           </header>
         </div>
-        <LearnModal isOpen={isOpen} onClose={onClose} records={records} setLearnRecordFunc={setLearnRecordFunc}/>
+        <LearnModal isOpen={isOpen} onClose={onClose} onSetLearnRecords={onSetLearnRecords} />
       </>
     );
   }
