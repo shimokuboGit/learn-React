@@ -27,7 +27,8 @@ export const App = () => {
 
   if (learnRecordisLoading) {
     return (
-      <Flex justify="center" align="center" height="100vh">
+      <Flex justify="center" align="center" height="50vh">
+        <Text fontSize="lg">Loading...</Text>
         <Spinner size="xl" />
       </Flex>
     );
