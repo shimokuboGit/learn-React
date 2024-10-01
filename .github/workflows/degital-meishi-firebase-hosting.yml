@@ -15,15 +15,18 @@ jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: cd degital-meishi-app
-      - run: echo "hoge"
-      - run: pwd
-      - run: npm install
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Set up
+        users: actions/checkout@v4
+
+      - name: Install depenencies and Build
+        run: |
+          npm ci
+          npm run build
+        working-directory: degital-meishi-app
+
+      - name: deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEGITAL_MEISHI_APP }}
           projectId: degital-meishi-app
-          working-directory: degital-meishi-app
