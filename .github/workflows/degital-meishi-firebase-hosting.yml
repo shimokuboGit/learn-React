@@ -25,7 +25,7 @@ jobs:
         working-directory: degital-meishi-app
 
       - name: deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
+        users: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEGITAL_MEISHI_APP }}
