@@ -14,6 +14,7 @@ permissions:
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Set up
         uses: actions/checkout@v4
@@ -30,4 +31,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEGITAL_MEISHI_APP }}
           projectId: degital-meishi-app
-          working-directory: degital-meishi-app
+          entryPoint: degital-meishi-app
