@@ -3,8 +3,8 @@
 
 name: degital-meishi-firebase-hosting
 on: [push, workflow_dispatch]
-paths:
-  - "degital-meighi-app/*"
+  paths:
+    - "degital-meighi-app/*"
 permissions:
   checks: write
   contents: read
