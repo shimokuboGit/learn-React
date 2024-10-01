@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "v2_learning-management-app/*"
-  workflow_dispatch:
 # env:
 #   VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
 #   VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}

@@ -6,7 +6,6 @@ on:
   push:
     paths:
       - "degital-meishi-app/*"
-  workflow_dispatch:
 permissions:
   checks: write
   contents: read
