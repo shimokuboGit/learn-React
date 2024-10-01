@@ -17,6 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: cd degital-meishi-app
+      - run: echo "hoge"
+      - run: pwd
       - run: npm install
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
