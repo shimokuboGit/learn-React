@@ -34,7 +34,7 @@ jobs:
       #     entryPoint: degital-meishi-app
 
       - name: firebase tool
-        run: npm install -h firebase-tools
+        run: npm install -g firebase-tools
         working-directory: degital-meishi-app
       - name: deploy
         run: firebase deploy --token 1//0eeqGENQPRL_sCgYIARAAGA4SNwF-L9Ir-CxeWq-a3wxAGOA595y89nobYrQnfR5AX-OlBcwri0Q7jMZvoyKV8k8w3dstqjFpPAM
