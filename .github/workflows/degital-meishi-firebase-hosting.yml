@@ -25,10 +25,17 @@ jobs:
           npm run build
         working-directory: degital-meishi-app
 
+      # - name: deploy
+      #   uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: ${{ secrets.GITHUB_TOKEN }}
+      #     firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEGITAL_MEISHI_APP }}
+      #     projectId: degital-meishi-app
+      #     entryPoint: degital-meishi-app
+
+      - name: firebase tool
+        run: npm install -h firebase-tools
+        working-directory: degital-meishi-app
       - name: deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEGITAL_MEISHI_APP }}
-          projectId: degital-meishi-app
-          entryPoint: degital-meishi-app
+        run: firebase deploy --token 1//0eeqGENQPRL_sCgYIARAAGA4SNwF-L9Ir-CxeWq-a3wxAGOA595y89nobYrQnfR5AX-OlBcwri0Q7jMZvoyKV8k8w3dstqjFpPAM
+        working-directory: degital-meishi-app
