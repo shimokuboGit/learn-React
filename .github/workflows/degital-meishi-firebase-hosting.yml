@@ -19,12 +19,21 @@ jobs:
       - name: Set up
         uses: actions/checkout@v4
 
-      - name: Install depenencies and Build
+      - name: install dependencies
         run: |
           npm ci
-          npm run build
+          npm install -g firebase-tools
         working-directory: degital-meishi-app
 
+      - name: test
+        run: npm run test
+        working-directory: degital-meishi-app
+
+      - name: build
+        run: npm run build
+        working-directory: degital-meishi-app
+
+      # 諦めた
       # - name: deploy
       #   uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
@@ -33,9 +42,6 @@ jobs:
       #     projectId: degital-meishi-app
       #     entryPoint: degital-meishi-app
 
-      - name: firebase tool
-        run: npm install -g firebase-tools
-        working-directory: degital-meishi-app
       - name: deploy
-        run: firebase deploy --token 1//0eeqGENQPRL_sCgYIARAAGA4SNwF-L9Ir-CxeWq-a3wxAGOA595y89nobYrQnfR5AX-OlBcwri0Q7jMZvoyKV8k8w3dstqjFpPAM
+        run: firebase deploy --token ${{ secrets.$FIREBASE_TOKEN_MEISHI }}
         working-directory: degital-meishi-app

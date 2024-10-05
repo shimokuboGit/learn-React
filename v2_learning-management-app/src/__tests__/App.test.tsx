@@ -2,8 +2,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from "@testing-library/user-event";
 import { App } from "../App";
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
-import { LearnRecord } from '../domain/LearnRecord';
 
 jest.mock("../hooks/useSupabaseClient.ts", () => {
   return {

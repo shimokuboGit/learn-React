@@ -1,12 +1,10 @@
 import './App.css'
+import { useEffect, useState } from 'react';
 
-function App() {
-
+export const App = () => {
   return (
     <>
-      hoge21
+      <h1>Hello World</h1>
     </>
   )
 }
-
-export default App
