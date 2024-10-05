@@ -43,5 +43,5 @@ jobs:
       #     entryPoint: degital-meishi-app
 
       - name: deploy
-        run: firebase deploy --token ${{ secrets.$FIREBASE_TOKEN_MEISHI }}
+        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN_MEISHI }}
         working-directory: degital-meishi-app
