@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, ChakraProvider } from '@chakra-ui/react';
 import './App.css'
 import { useEffect, useState } from 'react';
 import { Router } from './router/Router';
@@ -8,7 +8,9 @@ export const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Router />
+        <ChakraProvider>
+          <Router />
+        </ChakraProvider>
       </BrowserRouter>
     </>
   )

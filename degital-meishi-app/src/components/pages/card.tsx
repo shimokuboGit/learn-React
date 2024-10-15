@@ -20,7 +20,7 @@ export const Card: FC = memo(() => {
                                                   users(*),
                                                   skills(*)
                                                 `)
-                                                .eq('user_id', 'sample_id');
+                                                .eq('user_id', userId);
 
       if (fetchUser && fetchUser.length > 0) {
         const skills: string[] = fetchUser.map(f => f.skills?.name).filter(skill => skill !== undefined)
@@ -51,13 +51,30 @@ export const Card: FC = memo(() => {
     )
   } else {
     return (
-      <Box padding={4}>
-        <Heading as="h2" size="lg">{user.name}</Heading>
-        <Text fontSize="md" color="gray.600">{user.description}</Text>
-        <Text>{user.github_id && (<a href={user.github_id} target="_blank" rel="noopener noreferrer">GitHub</a>)}</Text>
-        <Text>{user.qiita_id && (<a href={user.qiita_id} target="_blank" rel="noopener noreferrer">Qiita</a>)}</Text>
-        <Text>{user.x_id && (<a href={user.x_id} target="_blank" rel="noopener noreferrer">X(Twitter)</a>)}</Text>
-        <Text fontSize="lg" marginTop={6}>スキル一覧:
+      <Box
+        padding={6} 
+        borderRadius="md" 
+        boxShadow="md" 
+        backgroundColor="white"
+        color="gray.800"
+        transition="0.2s ease"
+        fontWeight={1000}
+      >
+        <Heading as="h2" size="lg" textAlign="center" mb={4} fontWeight="bold">
+          {user.name}
+        </Heading>
+        <Text fontSize="md" color="gray.600" m={4}>{user.description}</Text>
+        <div dangerouslySetInnerHTML={{__html: user.description}}/>
+        <Text rel="noopener noreferrer" color="teal.400" fontWeight="semibold" mr={2}>
+          {user.github_id && (<a href={user.github_id} target="_blank">GitHub</a>)}
+        </Text>
+        <Text rel="noopener noreferrer" color="teal.400" fontWeight="semibold" mr={2}>
+          {user.qiita_id && (<a href={user.qiita_id} target="_blank" rel="noopener noreferrer">Qiita</a>)}
+        </Text>
+        <Text rel="noopener noreferrer" color="teal.400" fontWeight="semibold" mr={2}>
+          {user.x_id && (<a href={user.x_id} target="_blank" rel="noopener noreferrer">X(Twitter)</a>)}
+        </Text>
+        <Text fontSize="lg" marginTop={4}>スキル一覧:
           <List>
             {user.skills && user.skills.length > 0 ? (
               user.skills.map((skill, index) => (
