@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { supabaseClient } from "../../supabase";
 import { Profile } from "../../domain/profile";
-import { Box, Heading, ListItem, Spinner, UnorderedList, Text, List } from "@chakra-ui/react";
+import { Box, Heading, ListItem, Spinner, Text, List } from "@chakra-ui/react";
 
 export const Card: FC = memo(() => {
   const [user, setUser] = useState<Profile>()
@@ -38,8 +38,6 @@ export const Card: FC = memo(() => {
         fetchUser ? setUser(profile) : setLoading(true)
       }
 
-      console.log(user);
-      
       setLoading(false)
     }
     fetchUser()
