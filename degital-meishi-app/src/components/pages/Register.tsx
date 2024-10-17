@@ -1,10 +1,24 @@
-import { Box, Heading, FormControl, FormLabel, Input, Textarea, Button, Stack, Select } from "@chakra-ui/react";
+import { Box, Heading, FormControl, FormLabel, Input, Textarea, Button, Stack, Select, Text } from "@chakra-ui/react";
 import { FC, JSXElementConstructor, Key, memo, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
 import { supabaseClient } from "../../supabase";
 import { Skills } from "../../domain/skills";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+
+type Inputs = {
+  id: string
+}
 
 export const Register: FC = memo(() => {
   const [skillOptions, setSkillOptions] = useState<Skills>()
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
+  const onSubmit = handleSubmit((data) => {alert(JSON.stringify(data))})
 
   useEffect(() => {
     const fetchSkills = async() => {
@@ -26,49 +40,52 @@ export const Register: FC = memo(() => {
       </Heading>
 
       <Stack spacing={4}>
-        <FormControl>
-          <FormLabel>ID</FormLabel>
-          <Input placeholder="IDを入力" focusBorderColor="blue.400" />
-        </FormControl>
+        <form onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
+          <FormControl>
+            <FormLabel>ID</FormLabel>
+            <Input {...register("id", { required: true })} placeholder="IDを入力" focusBorderColor="blue.400" />
+            {errors.id && <Text>IDは必須です</Text>}
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>名前</FormLabel>
-          <Input placeholder="名前を入力" focusBorderColor="blue.400" />
-        </FormControl>
+          <FormControl>
+            <FormLabel>名前</FormLabel>
+            <Input placeholder="名前を入力" focusBorderColor="blue.400" />
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>自己紹介</FormLabel>
-          <Textarea placeholder="自己紹介を入力" focusBorderColor="blue.400" />
-        </FormControl>
+          <FormControl>
+            <FormLabel>自己紹介</FormLabel>
+            <Textarea placeholder="自己紹介を入力" focusBorderColor="blue.400" />
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>好きな技術</FormLabel>
-          <Select placeholder="好きな技術を選択" focusBorderColor="blue.400">
-            {skillOptions ? skillOptions.names.map((s: string) => (
-              <option key={s}>{s}</option>
-            ))
-            : <></>}
-          </Select>
-        </FormControl>
+          <FormControl>
+            <FormLabel>好きな技術</FormLabel>
+            <Select placeholder="好きな技術を選択" focusBorderColor="blue.400">
+              {skillOptions ? skillOptions.names.map((s: string) => (
+                <option key={s}>{s}</option>
+              ))
+              : <></>}
+            </Select>
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>GitHub ID</FormLabel>
-          <Input placeholder="GitHub IDを入力" focusBorderColor="blue.400" />
-        </FormControl>
+          <FormControl>
+            <FormLabel>GitHub ID</FormLabel>
+            <Input placeholder="GitHub IDを入力" focusBorderColor="blue.400" />
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>Qiita ID</FormLabel>
-          <Input placeholder="Qiita IDを入力" focusBorderColor="blue.400" />
-        </FormControl>
+          <FormControl>
+            <FormLabel>Qiita ID</FormLabel>
+            <Input placeholder="Qiita IDを入力" focusBorderColor="blue.400" />
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>Twitter (X) ID</FormLabel>
-          <Input placeholder="Twitter (X) IDを入力" focusBorderColor="blue.400" />
-        </FormControl>
+          <FormControl>
+            <FormLabel>Twitter (X) ID</FormLabel>
+            <Input placeholder="Twitter (X) IDを入力" focusBorderColor="blue.400" />
+          </FormControl>
 
-        <Button colorScheme="blue" size="lg" mt={6}>
-          登録
-        </Button>
+          <Button type="submit" colorScheme="blue" size="lg" mt={6}>
+            登録
+          </Button>
+        </form>
       </Stack>
     </Box>
   );
