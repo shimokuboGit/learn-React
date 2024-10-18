@@ -62,7 +62,7 @@ export const Card: FC = memo(() => {
         <Heading as="h2" size="lg" textAlign="center" mb={4} fontWeight="bold">
           {user.name}
         </Heading>
-        <div style={{ fontSize: "4px", margin: "4px", width: "90%" }} dangerouslySetInnerHTML={{__html: user.description}}/>
+        <div style={{ fontSize: "12px", margin: "4px", width: "90%" }} dangerouslySetInnerHTML={{__html: user.description}}/>
         <Text rel="noopener noreferrer" color="teal.400" fontWeight="semibold" mr={2}>
           {user.github_id && (<a href={user.github_id} target="_blank">GitHub</a>)}
         </Text>

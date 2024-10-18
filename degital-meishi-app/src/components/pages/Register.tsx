@@ -1,14 +1,18 @@
 import { Box, Heading, FormControl, FormLabel, Input, Textarea, Button, Stack, Select, Text } from "@chakra-ui/react";
-import { FC, JSXElementConstructor, Key, memo, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { supabaseClient } from "../../supabase";
 import { Skills } from "../../domain/skills";
-import { SubmitHandler, useForm } from "react-hook-form";
-
+import { useForm } from "react-hook-form";
+import { supabase } from '../../../../type-class/src/utils/supabase';
 
 type Inputs = {
   id: string,
   name: string,
-  description: string
+  description: string,
+  skill: string,
+  gitHubId: string,
+  qiitaId: string,
+  xId: string
 }
 
 export const Register: FC = memo(() => {
@@ -19,7 +23,28 @@ export const Register: FC = memo(() => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit = handleSubmit((data) => {alert(JSON.stringify(data))})
+
+  const onSubmit = async(input: Inputs) => {
+    const { data: usersData, error: usersError } = await supabaseClient.from('users').insert([
+      { id: input.id, name: input.name, description: input.description,  github_id: input.gitHubId, qiita_id: input.qiitaId, x_id: input.xId }
+    ]).select()
+
+    if (usersError) {
+      console.log('fail register user: ' + usersError.message);
+      return;
+    }
+
+    const { data: skillData } = await supabaseClient.from('skills').select('*').eq('name', input.skill)
+
+    const { data: userSkillData, error: userSkillError} = await supabaseClient.from('user_skill').insert([
+      { user_id: input.id, skill_id: skillData![0]?.id }
+    ]).select()
+
+    if (userSkillError) {
+      console.log('fail register skill: ' + userSkillError.message);
+      return;
+    }
+  }
 
   useEffect(() => {
     const fetchSkills = async() => {
@@ -41,7 +66,7 @@ export const Register: FC = memo(() => {
       </Heading>
 
       <Stack spacing={4}>
-        <form onSubmit={handleSubmit((data) => onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
             <FormLabel>ID</FormLabel>
             <Input {...register("id", { pattern: /^[A-Za-z]+$/ , required: true})} placeholder="IDを入力" focusBorderColor="blue.400" />
@@ -50,7 +75,7 @@ export const Register: FC = memo(() => {
                 {errors.id.type === 'required' && 'IDは必須です'}
                 {errors.id.type === 'pattern' && 'IDは英語のみです'}
               </Text>
-              )}
+            )}
           </FormControl>
 
           <FormControl>
@@ -67,7 +92,7 @@ export const Register: FC = memo(() => {
 
           <FormControl>
             <FormLabel>好きな技術</FormLabel>
-            <Select placeholder="好きな技術を選択" focusBorderColor="blue.400">
+            <Select {...register("skill")} placeholder="好きな技術を選択" focusBorderColor="blue.400">
               {skillOptions ? skillOptions.names.map((s: string) => (
                 <option key={s}>{s}</option>
               ))
@@ -77,17 +102,17 @@ export const Register: FC = memo(() => {
 
           <FormControl>
             <FormLabel>GitHub ID</FormLabel>
-            <Input placeholder="GitHub IDを入力" focusBorderColor="blue.400" />
+            <Input {...register("gitHubId")} placeholder="GitHub IDを入力" focusBorderColor="blue.400" />
           </FormControl>
 
           <FormControl>
             <FormLabel>Qiita ID</FormLabel>
-            <Input placeholder="Qiita IDを入力" focusBorderColor="blue.400" />
+            <Input {...register("qiitaId")} placeholder="Qiita IDを入力" focusBorderColor="blue.400" />
           </FormControl>
 
           <FormControl>
             <FormLabel>Twitter (X) ID</FormLabel>
-            <Input placeholder="Twitter (X) IDを入力" focusBorderColor="blue.400" />
+            <Input {...register("xId")} placeholder="Twitter (X) IDを入力" focusBorderColor="blue.400" />
           </FormControl>
 
           <Button type="submit" colorScheme="blue" size="lg" mt={6}>
