@@ -6,7 +6,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 
 type Inputs = {
-  id: string
+  id: string,
+  name: string,
+  description: string
 }
 
 export const Register: FC = memo(() => {
@@ -15,7 +17,6 @@ export const Register: FC = memo(() => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>()
   const onSubmit = handleSubmit((data) => {alert(JSON.stringify(data))})
@@ -40,21 +41,28 @@ export const Register: FC = memo(() => {
       </Heading>
 
       <Stack spacing={4}>
-        <form onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
+        <form onSubmit={handleSubmit((data) => onSubmit)}>
           <FormControl>
             <FormLabel>ID</FormLabel>
-            <Input {...register("id", { required: true })} placeholder="IDを入力" focusBorderColor="blue.400" />
-            {errors.id && <Text>IDは必須です</Text>}
+            <Input {...register("id", { pattern: /^[A-Za-z]+$/ , required: true})} placeholder="IDを入力" focusBorderColor="blue.400" />
+            {errors.id && (
+              <Text textColor="red">
+                {errors.id.type === 'required' && 'IDは必須です'}
+                {errors.id.type === 'pattern' && 'IDは英語のみです'}
+              </Text>
+              )}
           </FormControl>
 
           <FormControl>
             <FormLabel>名前</FormLabel>
-            <Input placeholder="名前を入力" focusBorderColor="blue.400" />
+            <Input {...register("name", { required: true })} placeholder="名前を入力" focusBorderColor="blue.400" />
+            {errors.name && <Text textColor="red">名前は必須です</Text>}
           </FormControl>
 
           <FormControl>
             <FormLabel>自己紹介</FormLabel>
-            <Textarea placeholder="自己紹介を入力" focusBorderColor="blue.400" />
+            <Textarea {...register("description", { required: true })} placeholder="自己紹介を入力" focusBorderColor="blue.400" />
+            {errors.description && <Text textColor="red">自己紹介は必須です</Text>}
           </FormControl>
 
           <FormControl>
