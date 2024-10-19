@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from "react";
 import { supabaseClient } from "../../supabase";
 import { Skills } from "../../domain/skills";
 import { useForm } from "react-hook-form";
-import { supabase } from '../../../../type-class/src/utils/supabase';
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   id: string,
@@ -16,6 +16,7 @@ type Inputs = {
 }
 
 export const Register: FC = memo(() => {
+  const navigate = useNavigate()
   const [skillOptions, setSkillOptions] = useState<Skills>()
 
   const {
@@ -44,6 +45,8 @@ export const Register: FC = memo(() => {
       console.log('fail register skill: ' + userSkillError.message);
       return;
     }
+
+    navigate('/')
   }
 
   useEffect(() => {
