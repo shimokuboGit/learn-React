@@ -1,11 +1,12 @@
 import { FC, memo, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { supabaseClient } from "../../supabase";
 import { Profile } from "../../domain/profile";
-import { Box, Heading, ListItem, Spinner, Text, List } from "@chakra-ui/react";
+import { Box, Heading, ListItem, Spinner, Text, List, Button } from "@chakra-ui/react";
 
 export const Card: FC = memo(() => {
+  const navigate = useNavigate()
   const [user, setUser] = useState<Profile>()
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -42,6 +43,8 @@ export const Card: FC = memo(() => {
     }
     fetchUser()
   }, [userId])  
+
+  const navigateTop = () => navigate('/')
   
   if (loading || user === undefined) {
     return (
@@ -83,6 +86,9 @@ export const Card: FC = memo(() => {
             )}
           </List>
         </Text>
+        <Button onClick={navigateTop} colorScheme="blue" size="lg" mt={6}>
+          戻る
+        </Button>
       </Box>
     )
   }
