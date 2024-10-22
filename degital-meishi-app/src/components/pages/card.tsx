@@ -62,7 +62,7 @@ export const Card: FC = memo(() => {
         fontWeight={1000}
         w={250}
       >
-        <Heading as="h2" size="lg" textAlign="center" mb={4} fontWeight="bold">
+        <Heading as="h2" size="lg" textAlign="center" mb={4} fontWeight="bold" data-testid="user-name">
           {user.name}
         </Heading>
         <div style={{ fontSize: "12px", margin: "4px", width: "90%" }} dangerouslySetInnerHTML={{__html: user.description}}/>
