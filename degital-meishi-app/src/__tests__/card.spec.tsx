@@ -2,7 +2,7 @@ import { render, waitFor, screen } from '@testing-library/react';
 import { Card } from '../components/pages/card';
 import { supabaseClient } from '../supabase';
 import { AcceleratedAnimation } from 'framer-motion';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 jest.mock("../supabase", () => {
   return {
@@ -39,13 +39,57 @@ jest.mock("../supabase", () => {
   };
 });
 
-describe('名刺表示ページのテスト', () => { 
-  it('名前が表示されていること', async() => {
+// const mockNavigator = jest.fn()
+// jest.mock('react-router-dom', () => ({
+//   ...jest.requireActual('react-router-dom'),
+//   useNavigate: () => mockNavigator,
+// }))
+
+describe('名刺表示ページのテスト', () => {
+  
+  beforeEach(() => {
     render(
       <BrowserRouter>
-        <Card />  
+        <Card />
       </BrowserRouter>
     )
+  })
+  it('名前が表示されていること', async() => {
     await waitFor(() => expect(screen.getByTestId("user-name")).toHaveTextContent('テスト太郎'))
   })
+
+  it('自己紹介が表示されていること', async() => {
+    await waitFor(() => expect(screen.findByText('<h1>テスト太郎の自己紹介</h1>')))
+  })
+
+  it('技術（React）が表示されていること', async () => {
+    await waitFor(() => {
+      expect(screen.findByText("React"))
+    });
+  })
+
+  it('GitHubのリンクが表示されていること', async () => {
+    const githubLink = await screen.findByText("GitHub");
+    expect(screen.findByText("GitHub"));
+    expect(githubLink);
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/github_id')
+  })
+
+  it('Qiitaのリンクが表示されていること', async () => {
+    const qiitaLink = await screen.findByText("Qiita");
+    expect(qiitaLink).toBeInTheDocument();
+    expect(qiitaLink).toHaveAttribute('href', 'https://qiita.com/qiita_id')
+  })
+
+  it('Xのリンクが表示されていること', async () => {
+    const xLink = await screen.findByText("X(Twitter)");
+    expect(xLink).toBeInTheDocument();
+    expect(xLink).toHaveAttribute('href', 'https://twitter.com/x_id')
+  })
+
+  // it('戻るボタンをクリックすると/に遷移できること', async () => {
+  //   await waitFor(() => {
+  //     // const 
+  //   })
+  // })
 })
