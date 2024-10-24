@@ -1,6 +1,7 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { Card } from '../components/pages/card';
 import { BrowserRouter, useLocation } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 
 jest.mock("../supabase", () => {
   return {
@@ -45,49 +46,65 @@ jest.mock('react-router-dom', () => ({
 
 describe('名刺表示ページのテスト', () => {
   
-  beforeEach(() => {
-    render(
-      <BrowserRouter>
-        <Card />
-      </BrowserRouter>
-    )
+  beforeEach(async () => {
+    await act(() => {
+      render(
+        <BrowserRouter>
+          <Card />
+        </BrowserRouter>
+      )
+    })
   })
   it('名前が表示されていること', async() => {
-    await waitFor(() => expect(screen.getByTestId("user-name")).toHaveTextContent('テスト太郎'))
+    await act(async () => {
+      await waitFor(() => expect(screen.getByTestId("user-name")).toHaveTextContent('テスト太郎'))
+    })
   })
 
   it('自己紹介が表示されていること', async() => {
-    await waitFor(() => expect(screen.findByText('<h1>テスト太郎の自己紹介</h1>')))
+    await act(async () => {
+      await waitFor(() => expect(screen.findByText('<h1>テスト太郎の自己紹介</h1>')))
+    })
   })
 
   it('技術（React）が表示されていること', async () => {
-    await waitFor(() => {
-      expect(screen.findByText("React"))
-    });
+    await act(async () => {
+      await waitFor(() => {
+        expect(screen.findByText("React"))
+      });
+    })
   })
 
   it('GitHubのリンクが表示されていること', async () => {
-    const githubLink = await screen.findByText("GitHub");
-    expect(screen.findByText("GitHub"));
-    expect(githubLink);
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/github_id')
+    await act(async () => {
+      const githubLink = await screen.findByText("GitHub");
+      expect(screen.findByText("GitHub"));
+      expect(githubLink);
+      expect(githubLink).toHaveAttribute('href', 'https://github.com/github_id')
+    })
   })
 
   it('Qiitaのリンクが表示されていること', async () => {
-    const qiitaLink = await screen.findByText("Qiita");
-    expect(qiitaLink).toBeInTheDocument();
-    expect(qiitaLink).toHaveAttribute('href', 'https://qiita.com/qiita_id')
+    await act(async () => {
+      const qiitaLink = await screen.findByText("Qiita");
+      expect(qiitaLink).toBeInTheDocument();
+      expect(qiitaLink).toHaveAttribute('href', 'https://qiita.com/qiita_id')
+    })
   })
 
   it('Xのリンクが表示されていること', async () => {
-    const xLink = await screen.findByText("X(Twitter)");
-    expect(xLink).toBeInTheDocument();
-    expect(xLink).toHaveAttribute('href', 'https://twitter.com/x_id')
+    await act(async () => {
+      const xLink = await screen.findByText("X(Twitter)");
+      expect(xLink).toBeInTheDocument();
+      expect(xLink).toHaveAttribute('href', 'https://twitter.com/x_id')
+    })
   })
 
   it('戻るボタンをクリックすると/に遷移できること', async () => {
-    const button = await screen.findByText('戻る')
-    fireEvent.click(button)
-    expect(mockNavigator).toHaveBeenLastCalledWith('/')
+    await act(async () => {
+      const button = await screen.findByText('戻る')
+      fireEvent.click(button)
+      expect(mockNavigator).toHaveBeenLastCalledWith('/')
+    })
   })
 })
