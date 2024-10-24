@@ -1,8 +1,6 @@
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { Card } from '../components/pages/card';
-import { supabaseClient } from '../supabase';
-import { AcceleratedAnimation } from 'framer-motion';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 
 jest.mock("../supabase", () => {
   return {
@@ -39,11 +37,11 @@ jest.mock("../supabase", () => {
   };
 });
 
-// const mockNavigator = jest.fn()
-// jest.mock('react-router-dom', () => ({
-//   ...jest.requireActual('react-router-dom'),
-//   useNavigate: () => mockNavigator,
-// }))
+const mockNavigator = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigator,
+}))
 
 describe('名刺表示ページのテスト', () => {
   
@@ -87,9 +85,9 @@ describe('名刺表示ページのテスト', () => {
     expect(xLink).toHaveAttribute('href', 'https://twitter.com/x_id')
   })
 
-  // it('戻るボタンをクリックすると/に遷移できること', async () => {
-  //   await waitFor(() => {
-  //     // const 
-  //   })
-  // })
+  it('戻るボタンをクリックすると/に遷移できること', async () => {
+    const button = await screen.findByText('戻る')
+    fireEvent.click(button)
+    expect(mockNavigator).toHaveBeenLastCalledWith('/')
+  })
 })
