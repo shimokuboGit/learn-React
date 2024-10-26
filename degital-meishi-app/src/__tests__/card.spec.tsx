@@ -1,7 +1,7 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { Card } from '../components/pages/card';
 import { BrowserRouter, useLocation } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
+import { act } from 'react';
 
 jest.mock("../supabase", () => {
   return {
@@ -47,7 +47,7 @@ jest.mock('react-router-dom', () => ({
 describe('名刺表示ページのテスト', () => {
   
   beforeEach(async () => {
-    await act(() => {
+    act(() => {
       render(
         <BrowserRouter>
           <Card />

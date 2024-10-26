@@ -42,7 +42,6 @@ jest.mock("../hooks/useSupabaseClient.ts", () => {
 })
 
 describe("test", () => {
-  // render(<App />)
   beforeEach(() => {
     render(<App />)
   })
