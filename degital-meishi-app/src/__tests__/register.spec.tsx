@@ -184,4 +184,146 @@ describe('登録ページのテスト', () => {
       expect(mockNavigator).toHaveBeenCalledWith('/')
     })
   })
+
+  test("IDがないときにエラーメッセージが見えること", async () => {
+    const inputName = screen.getByRole("textbox", { name: "名前" }).closest("input")!
+    fireEvent.change(inputName, { target: {value: 'test-name'}})
+    expect(inputName.value).toBe('test-name')
+    
+    const inputDescription = screen.getByRole("textbox", { name: "自己紹介" }).closest("textarea")!;
+    fireEvent.change(inputDescription, { target: { value: "テストの自己紹介" } });
+    expect(inputDescription.value).toBe("テストの自己紹介");
+
+    const skillSelect = await waitFor(() => screen.getByRole("combobox", { name: "好きな技術" }).closest("select")!);
+    await waitFor(() => {
+      expect(screen.getByRole("option", { name: "React" })).toBeInTheDocument();
+    });
+    fireEvent.change(skillSelect, { target: { value: "React" } });
+    expect(skillSelect.value).toBe("React");
+
+    const inputGitHubId = screen.getByRole("textbox", { name: "GitHub ID" }).closest("input")!;
+    fireEvent.change(inputGitHubId, { target: { value: "github-test" } });
+    expect(inputGitHubId.value).toBe("github-test");
+    
+    const inputQiitaId = screen.getByRole("textbox", { name: "Qiita ID" }).closest("input")!;
+    fireEvent.change(inputQiitaId, { target: { value: "qiita-test" } });
+    expect(inputQiitaId.value).toBe("qiita-test");
+    
+    const inputXId = screen.getByRole("textbox", { name: "Twitter (X) ID" }).closest("input")!;
+    fireEvent.change(inputXId, { target: { value: "x-test" } });
+    expect(inputXId.value).toBe("x-test");
+    
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+    expect(await screen.findByText("IDは必須です"))
+  })
+
+  test("名前がないときにエラーメッセージが見えること", async () => {
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+    expect(await screen.findByText("IDは必須です"))
+  })
+
+  test("名前がないときにエラーメッセージが見えること", async () => {
+    const inputId = screen.getByRole("textbox", { name: "ID" }).closest("input")!
+    fireEvent.change(inputId, {target: {value: 'testId'}})
+    expect(inputId.value).toBe("testId")
+    
+    const inputDescription = screen.getByRole("textbox", { name: "自己紹介" }).closest("textarea")!;
+    fireEvent.change(inputDescription, { target: { value: "テストの自己紹介" } });
+    expect(inputDescription.value).toBe("テストの自己紹介");
+
+    const skillSelect = await waitFor(() => screen.getByRole("combobox", { name: "好きな技術" }).closest("select")!);
+    await waitFor(() => {
+      expect(screen.getByRole("option", { name: "React" })).toBeInTheDocument();
+    });
+    fireEvent.change(skillSelect, { target: { value: "React" } });
+    expect(skillSelect.value).toBe("React");
+
+    const inputGitHubId = screen.getByRole("textbox", { name: "GitHub ID" }).closest("input")!;
+    fireEvent.change(inputGitHubId, { target: { value: "github-test" } });
+    expect(inputGitHubId.value).toBe("github-test");
+    
+    const inputQiitaId = screen.getByRole("textbox", { name: "Qiita ID" }).closest("input")!;
+    fireEvent.change(inputQiitaId, { target: { value: "qiita-test" } });
+    expect(inputQiitaId.value).toBe("qiita-test");
+    
+    const inputXId = screen.getByRole("textbox", { name: "Twitter (X) ID" }).closest("input")!;
+    fireEvent.change(inputXId, { target: { value: "x-test" } });
+    expect(inputXId.value).toBe("x-test");
+    
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+
+    expect(screen.findByText("名前は必須です"))
+  })
+
+  test("自己紹介がない時にエラーメッセージが見えること", async() => {
+    const inputId = screen.getByRole("textbox", { name: "ID" }).closest("input")!
+    fireEvent.change(inputId, {target: {value: 'testId'}})
+    expect(inputId.value).toBe("testId")
+    
+    const inputName = screen.getByRole("textbox", { name: "名前" }).closest("input")!
+    fireEvent.change(inputName, { target: {value: 'test-name'}})
+    expect(inputName.value).toBe('test-name')
+
+    const skillSelect = await waitFor(() => screen.getByRole("combobox", { name: "好きな技術" }).closest("select")!);
+    await waitFor(() => {
+      expect(screen.getByRole("option", { name: "React" })).toBeInTheDocument();
+    });
+    fireEvent.change(skillSelect, { target: { value: "React" } });
+    expect(skillSelect.value).toBe("React");
+
+    const inputGitHubId = screen.getByRole("textbox", { name: "GitHub ID" }).closest("input")!;
+    fireEvent.change(inputGitHubId, { target: { value: "github-test" } });
+    expect(inputGitHubId.value).toBe("github-test");
+    
+    const inputQiitaId = screen.getByRole("textbox", { name: "Qiita ID" }).closest("input")!;
+    fireEvent.change(inputQiitaId, { target: { value: "qiita-test" } });
+    expect(inputQiitaId.value).toBe("qiita-test");
+    
+    const inputXId = screen.getByRole("textbox", { name: "Twitter (X) ID" }).closest("input")!;
+    fireEvent.change(inputXId, { target: { value: "x-test" } });
+    expect(inputXId.value).toBe("x-test");
+    
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+
+    expect(screen.findByText("自己紹介は必須です"))
+  })
+
+  test("GitHubId, QiitaId, TwitterIdは入力しなくても登録できる", async() => {
+    const inputId = screen.getByRole("textbox", { name: "ID" }).closest("input")!
+    fireEvent.change(inputId, {target: {value: 'testId'}})
+    expect(inputId.value).toBe("testId")
+    
+    const inputName = screen.getByRole("textbox", { name: "名前" }).closest("input")!
+    fireEvent.change(inputName, { target: {value: 'test-name'}})
+    expect(inputName.value).toBe('test-name')
+    
+    const inputDescription = screen.getByRole("textbox", { name: "自己紹介" }).closest("textarea")!;
+    fireEvent.change(inputDescription, { target: { value: "テストの自己紹介" } });
+    expect(inputDescription.value).toBe("テストの自己紹介");
+
+    const skillSelect = await waitFor(() => screen.getByRole("combobox", { name: "好きな技術" }).closest("select")!);
+    await waitFor(() => {
+      expect(screen.getByRole("option", { name: "React" })).toBeInTheDocument();
+    });
+    fireEvent.change(skillSelect, { target: { value: "React" } });
+    expect(skillSelect.value).toBe("React");
+    
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+    await waitFor(() => {
+      expect(mockNavigator).toHaveBeenCalledWith('/')
+    })
+  })
+
+  test("必須項目の入力がないと登録できないこと", async() => {
+    const button = await screen.findByText('登録')
+    act(() => {fireEvent.click(button)})
+    await waitFor(() => {
+      expect(mockNavigator).toHaveBeenCalledWith('/')
+    })
+  })
 })
