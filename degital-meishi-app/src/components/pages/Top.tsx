@@ -6,7 +6,7 @@ import { supabaseClient } from "../../supabase"
 export const Top: FC = memo(() => {
   const navigate = useNavigate()
   const [inputId, setInputId] = useState<string>()
-  const [isNoExistError, setIsNoExistError] = useState<boolean>(false)
+  const [isNoExistError, setIsNoExistError] = useState<boolean>(true)
 
   const validateExistId = async(inputId: string) => {
     const { data, error } = await supabaseClient.from('users').select('*').eq('id', inputId)
@@ -22,7 +22,9 @@ export const Top: FC = memo(() => {
     inputId && validateExistId(event.target.value)
   }
 
-  const onClickSearch = () => navigate(`/card/${inputId}`)
+  const onClickSearch = () => {
+    navigate(`/card/${inputId}`)
+  }
 
   return (
     <Box maxW="600px" mx="auto" p={6} borderWidth={1} borderRadius="lg" boxShadow="lg">
@@ -34,7 +36,7 @@ export const Top: FC = memo(() => {
         <FormControl>
           <FormLabel>ID</FormLabel>
           <Input value={inputId} onChange={onChengeInputId}></Input>
-          {isNoExistError && <Text color="red">error</Text>}
+          {isNoExistError && <Text color="red">ユーザーが見つかりません</Text>}
         </FormControl>
 
         <Button onClick={onClickSearch} disabled={isNoExistError} colorScheme="blue" size="lg" mt={6}
