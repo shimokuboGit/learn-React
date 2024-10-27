@@ -26,6 +26,10 @@ export const Top: FC = memo(() => {
     navigate(`/card/${inputId}`)
   }
 
+  function onClickToRegister(): void {
+    navigate('/card/register')
+  }
+
   return (
     <Box maxW="600px" mx="auto" p={6} borderWidth={1} borderRadius="lg" boxShadow="lg">
       <Heading mb={6} textAlign="center" size="lg" color="gray.700">
@@ -46,6 +50,15 @@ export const Top: FC = memo(() => {
             color: "white"
           }}>
           検索
+        </Button>
+
+        <Button onClick={onClickToRegister} colorScheme="blue" size="lg" mt={6}
+          _disabled={{
+            bg: "gray.400",
+            cursor: "not-allowed",
+            color: "white"
+          }}>
+          新規登録へ
         </Button>
       </Stack>
     </Box>

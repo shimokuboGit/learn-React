@@ -82,4 +82,12 @@ describe("トップページのテスト", () => {
       expect(mockNavigator).toHaveBeenCalledTimes(0)
     })
   })
+
+  test("新規登録へボタンを押すと/card/registerへ遷移する", async() => {
+    const button = screen.getByRole("button", { name: "新規登録へ" })
+    fireEvent.click(button)
+    waitFor(() => {
+      expect(mockNavigator).toHaveBeenCalledWith("/card/testId")
+    })
+  })
 })
