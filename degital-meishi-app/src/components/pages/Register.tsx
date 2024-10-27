@@ -35,10 +35,10 @@ export const Register: FC = memo(() => {
       return;
     }
 
-    const { data: skillData } = await supabaseClient.from('skills').select('*').eq('name', input.skill)
+    const { data: skillData } = await supabaseClient.from('skills').select('id').eq('name', input.skill)
 
     const { data: userSkillData, error: userSkillError} = await supabaseClient.from('user_skill').insert([
-      { user_id: input.id, skill_id: skillData![0]?.id }
+      { user_id: input.id, skill_id: skillData![0].id }
     ]).select()
 
     if (userSkillError) {
