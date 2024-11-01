@@ -14,5 +14,10 @@ const supabaseClient = createClient<Database> (
 )
 
 const { data, error } = await supabaseClient.from("users").delete().gte("created_at", formatedPreviousDate).select()
-console.log('data:' + data);
-console.log('err:' + error?.code + error?.cause + error?.details);
+if (data === null) {
+  console.log('前日に登録されたユーザーはいませんでした');
+} else {
+  console.log('削除されたユーザー数: ' + data.length);
+  data.map(d => console.log(d))
+}
+error && console.log('error: ' + error?.code + error?.cause + error?.details)

@@ -3,8 +3,12 @@ on:
   workflow_dispatch:
 jobs:
   # Job1用のコンテナ環境が用意される
-  Job1:
+  delete-previous-user:
     runs-on: ubuntu-latest
     steps:
+      - name: setup
+        run: |
+          npm ci
       - name: execute
-        run: echo a
+        run: node --no-warnings --loader ts-node/esm ./src/batch/index.ts
+        working-directory: degital-meishi-app
