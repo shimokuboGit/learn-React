@@ -9,6 +9,7 @@ jobs:
       - name: setup
         run: |
           npm ci
+        working-directory: degital-meishi-app
       - name: execute
         run: node --no-warnings --loader ts-node/esm ./src/batch/index.ts
         working-directory: degital-meishi-app
