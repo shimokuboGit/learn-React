@@ -1,5 +1,7 @@
 name: degital-meishi-job-for-delete-previous-user
 on:
+  schedule:
+    - cron:  '0 6 * * *'
   workflow_dispatch:
 jobs:
   # Job1用のコンテナ環境が用意される
