@@ -5,10 +5,15 @@ jobs:
   # Job1用のコンテナ環境が用意される
   delete-previous-user:
     runs-on: ubuntu-latest
+
     steps:
-      - name: setup
+      - name: Set up
+        uses: actions/checkout@v4
+
+      - name: install dependencies
         run: npm ci
         working-directory: degital-meishi-app
+
       - name: execute
         run: node --no-warnings --loader ts-node/esm ./src/batch/index.ts
         working-directory: degital-meishi-app
