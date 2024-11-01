@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
-        run: |
-          npm ci
+        run: npm ci
         working-directory: degital-meishi-app
       - name: execute
         run: node --no-warnings --loader ts-node/esm ./src/batch/index.ts
