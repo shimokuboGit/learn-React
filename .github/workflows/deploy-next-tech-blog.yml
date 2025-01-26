@@ -2,7 +2,7 @@ name: deploy-next-tech-blog
 on:
   push:
     paths:
-      - "next-tech-blog/*"
+      - "next-tech-blog/**"
     workflow_dispatch:
 jobs:
   build-and-deploy:
