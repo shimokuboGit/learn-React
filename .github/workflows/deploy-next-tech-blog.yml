@@ -3,12 +3,13 @@ on:
   push:
     paths:
       - "next-tech-blog/**"
+      - ".github/workflows/*"
     workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: setup nodejs
         uses: actions/setup-node@v2
         with:
@@ -21,8 +22,7 @@ jobs:
         run: npm run test
 
       - name: build
-        run:
-          npm run build
+        run: npm run build
 
       - name: deploy
         uses: amondnet/vercel-action@v20
@@ -30,4 +30,4 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           # vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          github-token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+          # github-token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
