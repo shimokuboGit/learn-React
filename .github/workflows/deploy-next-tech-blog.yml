@@ -17,12 +17,15 @@ jobs:
 
       - name: npm install
         run: npm install
+        working-directory: next-tech-blog
 
       - name: run tests
         run: npm run test
+        working-directory: next-tech-blog
 
       - name: build
         run: npm run build
+        working-directory: next-tech-blog
 
       - name: deploy
         uses: amondnet/vercel-action@v20
@@ -31,3 +34,4 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           # vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           # github-token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+        working-directory: next-tech-blog
