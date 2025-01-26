@@ -29,7 +29,6 @@ jobs:
 
       - name: deploy
         uses: amondnet/vercel-action@v20
-        working-directory: next-tech-blog
         with:
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
