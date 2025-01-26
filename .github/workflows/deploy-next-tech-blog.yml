@@ -12,6 +12,10 @@ jobs:
       - name: setup
         uses: actions/checkout@v4
 
+      - name: npm install
+        run: npm install
+        working-directory: npm install
+
       - name: test
         run: npm run test
         working-directory: next-tech-blog
