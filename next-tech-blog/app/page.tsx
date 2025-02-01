@@ -10,7 +10,8 @@ export default function Home() {
   useEffect(() => {
     async function fetchArticles() {
       const API_URL = process.env.NEXT_PUBLIC_API_URL
-      const res = await (await fetch(`${API_URL}/api/fetchQiitaArticles`)).json()
+      // const res = await (await fetch(`${API_URL}/api/fetchQiitaArticles`)).json()
+      const res = await (await fetch(`${API_URL}/api/fetchMicroCMSArticles`)).json()
       setArticle(res.data)
     }
     fetchArticles()
