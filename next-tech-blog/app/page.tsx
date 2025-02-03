@@ -33,6 +33,7 @@ export default function Home() {
         {article.map((a, index) => (
           <QiitaContent
             key={index}
+            id={a.id}
             title={a.title}
             date={a.date}
             url={a.url}
