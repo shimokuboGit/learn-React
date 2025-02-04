@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Title from "./components/atoms/Title";
 import { QiitaContent } from "./components/organisms/QiitaContent";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [article, setArticle] = useState<ArticleContent[]>([])
@@ -17,17 +18,22 @@ export default function Home() {
     fetchArticles()
   }, [])
 
+  // const onClickReadAllArticle = () => {
+  //   async function fetchArticles() {
+  //     const API_URL = process.env.NEXT_PUBLIC_API_URL
+  //     const res = await (await fetch(`${API_URL}/api/fetchAllQiitaArticles`)).json()
+  //     setArticle(res.data)
+  //   }
+  //   fetchArticles()
+  // }
+
+  const router = useRouter()
   const onClickReadAllArticle = () => {
-    async function fetchArticles() {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL
-      const res = await (await fetch(`${API_URL}/api/fetchAllQiitaArticles`)).json()
-      setArticle(res.data)
-    }
-    fetchArticles()
+    router.push('/blogs')
   }
-  
+
   return (
-    <div>
+    <div>≈
       <Title />
       <div className="grid grid-cols-4 gap-2">
         {article.map((a, index) => (
