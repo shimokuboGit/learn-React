@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { QiitaContent } from '../components/organisms/QiitaContent';
 import Title from "../components/atoms/Title";
+import BackButton from "../components/atoms/BackButton";
 
 export default function PersonalBlogs() {
   const [articles, setArticles] = useState<ArticleContent[]>([])
@@ -29,6 +30,7 @@ export default function PersonalBlogs() {
           ))}
         </div>
       </div>
+      <BackButton />
     </div>
   )
 }

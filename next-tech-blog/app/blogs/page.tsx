@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { QiitaContent } from "../components/organisms/QiitaContent";
+import BackButton from "../components/atoms/BackButton";
+import Title from "../components/atoms/Title";
 
 export default function AllArticle() {
   const [ article, setArticle ] = useState<ArticleContent[]>([])
@@ -16,7 +18,7 @@ export default function AllArticle() {
 
   return (
     <div>
-      <h1>全ての記事</h1>
+      <Title title="全ての記事" />
       <div className="grid grid-cols-4 gap-2">
         {article.map((a, index) => (
           <QiitaContent
@@ -25,6 +27,7 @@ export default function AllArticle() {
           />
         ))}
       </div>
+      <BackButton />
     </div>
   )
 }

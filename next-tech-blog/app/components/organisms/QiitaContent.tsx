@@ -1,3 +1,5 @@
+import BackButton from "../atoms/BackButton";
+
 type QiitaContentProps = {
   article: ArticleContent;
 }

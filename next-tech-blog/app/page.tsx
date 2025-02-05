@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Title from "./components/atoms/Title";
 import { QiitaContent } from "./components/organisms/QiitaContent";
 import { useRouter } from "next/navigation";
+import Title from "./components/atoms/Title";
 
 export default function Home() {
   const router = useRouter()
@@ -19,8 +19,8 @@ export default function Home() {
   }, [])
 
   return (
-    <div>≈
-      <Title />
+    <div>
+      <Title title="ブログホーム" />
       <div className="grid grid-cols-4 gap-2">
         {article.map((a, index) => (
           <QiitaContent
