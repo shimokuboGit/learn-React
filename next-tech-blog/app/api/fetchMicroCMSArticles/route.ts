@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server"
 
 type responseJosn = {
@@ -9,7 +8,7 @@ type responseJosn = {
   thumbnail: string;
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
     const result = await fetch('https://ujmy0b3t91.microcms.io/api/v1/blogs', {
       headers: {
@@ -21,7 +20,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     }
     
     const data = await result.json()
-    const responseData: responseJosn = data.contents.map((d: any) => ({
+    const responseData: responseJosn = data.contents.map((d: { id: string; title: string; createdAt: string; thumbnail: { url: string; }; }) => ({
       id: d.id,
       title: d.title,
       date: d.createdAt,

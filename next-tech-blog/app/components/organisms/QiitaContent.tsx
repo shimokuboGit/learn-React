@@ -1,16 +1,17 @@
-import BackButton from "../atoms/BackButton";
+import { ArticleContent } from "@/app/domain/ArticleContent";
+import Image from "next/image";
 
 type QiitaContentProps = {
   article: ArticleContent;
 }
 
 export const QiitaContent = ({article}: QiitaContentProps) => {
-  const { id, title, date, url, thumbnail } = article;
+  const { title, date, url, thumbnail } = article;
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl">
       <a href={`${url}`} target="_blank">
         <figure>
-          <img
+          <Image
             src={thumbnail}
             alt="qiita-thumbnail" />
         </figure>

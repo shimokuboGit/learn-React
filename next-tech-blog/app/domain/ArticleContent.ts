@@ -1,4 +1,4 @@
-type ArticleContent = {
+export type ArticleContent = {
   id: string;
   title: string;
   date: string;

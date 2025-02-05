@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 type Props = {
   params: { id: string }
 }
@@ -13,7 +15,7 @@ const { id } = params
   return (
     <div className="p-4">
       <h1 className="text-4xl font-blod">{article.data?.title || "No Title"}</h1>
-      {article.data?.thumbnail && <img src={article.data.thumbnail} alt={article.data.title} width={600} />}
+      {article.data?.thumbnail && <Image src={article.data.thumbnail} alt={article.data.title} width={600} />}
       <p>Published on: {article.data?.date ? new Date(article.data.date).toLocaleDateString() : "Unknown Date"}</p>
       <a href={article.data?.url} target="_blank" rel="noopener noreferrer">
         サイトへ移動

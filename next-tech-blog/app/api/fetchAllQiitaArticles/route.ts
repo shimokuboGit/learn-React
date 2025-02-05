@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server';
 
 type responseJson = {
@@ -9,7 +8,7 @@ type responseJson = {
   thumbnail: string;
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
     const result = await fetch('https://qiita.com/api/v2/authenticated_user/items', {
       headers: {
@@ -21,7 +20,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     }
   
     const data = await result.json()
-    const responseData: responseJson = data.map((d: { id: any; title: any; created_at: any; url: any; }) => ({
+    const responseData: responseJson = data.map((d: { id: string; title: string; created_at: string; url: string; }) => ({
       id: d.id,
       title: d.title,
       date: d.created_at,
