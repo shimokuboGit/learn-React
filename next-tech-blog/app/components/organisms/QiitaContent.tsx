@@ -1,15 +1,12 @@
 type QiitaContentProps = {
-  id: string;
-  title: string;
-  date: string;
-  url: string;
-  thumbnail: string;
+  article: ArticleContent;
 }
 
-export const QiitaContent = ({id, title, date, url, thumbnail}: QiitaContentProps) => {
+export const QiitaContent = ({article}: QiitaContentProps) => {
+  const { id, title, date, url, thumbnail } = article;
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl">
-      <a href={`/blogs/${id}`} target="_blank">
+      <a href={`${url}`} target="_blank">
         <figure>
           <img
             src={thumbnail}

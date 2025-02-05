@@ -1,11 +1,10 @@
-// export const Title = () => {
-//   return (
-//     <h1>Title</h1>
-//   )
-// }
+type TitleProps = {
+  title: string;
+}
 
-export default function Title() {
+export default function Title(props: TitleProps) {
+  const { title } = props
   return (
-    <h1>Title</h1>
+    <h1 className="text-3xl font-bold">{title}</h1>
   )
 }

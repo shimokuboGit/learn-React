@@ -21,11 +21,7 @@ export default function AllArticle() {
         {article.map((a, index) => (
           <QiitaContent
             key={index}
-            id={a.id}
-            title={a.title}
-            date={a.date}
-            url={a.url}
-            thumbnail={a.thumbnail}
+            article={a}
           />
         ))}
       </div>

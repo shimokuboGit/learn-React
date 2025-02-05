@@ -6,31 +6,17 @@ import { QiitaContent } from "./components/organisms/QiitaContent";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
   const [article, setArticle] = useState<ArticleContent[]>([])
   
   useEffect(() => {
     async function fetchArticles() {
       const API_URL = process.env.NEXT_PUBLIC_API_URL
-      // const res = await (await fetch(`${API_URL}/api/fetchQiitaArticles`)).json()
       const res = await (await fetch(`${API_URL}/api/fetchMicroCMSArticles`)).json()
       setArticle(res.data)
     }
     fetchArticles()
   }, [])
-
-  // const onClickReadAllArticle = () => {
-  //   async function fetchArticles() {
-  //     const API_URL = process.env.NEXT_PUBLIC_API_URL
-  //     const res = await (await fetch(`${API_URL}/api/fetchAllQiitaArticles`)).json()
-  //     setArticle(res.data)
-  //   }
-  //   fetchArticles()
-  // }
-
-  const router = useRouter()
-  const onClickReadAllArticle = () => {
-    router.push('/blogs')
-  }
 
   return (
     <div>≈
@@ -39,15 +25,12 @@ export default function Home() {
         {article.map((a, index) => (
           <QiitaContent
             key={index}
-            id={a.id}
-            title={a.title}
-            date={a.date}
-            url={a.url}
-            thumbnail={a.thumbnail}
+            article={a}
           />
         ))}
       </div>
-      <button className="btn m-4" onClick={onClickReadAllArticle}>もっとみる</button>
+      <button className="btn m-4" onClick={() => router.push('blogs')}>もっとみる</button>
+      <button className="btn m-4" onClick={() => router.push('personalBlogs')}>個人記事一覧</button>
     </div>
   );
 }
