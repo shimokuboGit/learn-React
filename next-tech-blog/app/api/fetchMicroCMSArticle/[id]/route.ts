@@ -1,8 +1,7 @@
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, { params }: { params: { id: string } } ) {
-  const p = await params
+export async function GET(request: Request, { params }: { params: { id: string } } ) {
+  const p = params
   const id = p.id
   
   try {

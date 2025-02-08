@@ -5,18 +5,14 @@ import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ArticleContent } from '../../domain/ArticleContent';
 
-type Props = {
-  params: { id: string }
-}
-
 export default function Page () {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
   const router = useRouter()
-
+  
   const { id } = useParams()
   const [ article, setArticle ] = useState<ArticleContent>()
   
   useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL
     async function fetchMicroCMSArticle() {
       const article = await fetch(`${API_URL}/api/fetchMicroCMSArticle/${id}`).then(async (res) => {
         return await res.json()
