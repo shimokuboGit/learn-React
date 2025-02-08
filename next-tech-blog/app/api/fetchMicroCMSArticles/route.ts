@@ -24,7 +24,7 @@ export async function GET() {
       id: d.id,
       title: d.title,
       date: d.createdAt,
-      url: `https://ujmy0b3t91.microcms.io/apis/blogs/${d.id}`,
+      url: `/blogs/${d.id}`,
       thumbnail: d.thumbnail.url
     }))
     return NextResponse.json({ data: responseData })

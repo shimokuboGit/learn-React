@@ -6,6 +6,8 @@ type QiitaContentProps = {
 }
 
 export const QiitaContent = ({article}: QiitaContentProps) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
+  
   const { title, date, url, thumbnail } = article;
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl">

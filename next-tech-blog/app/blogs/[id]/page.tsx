@@ -1,25 +1,41 @@
+'use client'
+
 import Image from "next/image"
+import { useParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { ArticleContent } from '../../domain/ArticleContent';
 
 type Props = {
   params: { id: string }
 }
 
-export default async function Page ({ params }: Props) {
-const { id } = params
-
+export default function Page () {
   const API_URL = process.env.NEXT_PUBLIC_API_URL
-  const article = await fetch(`${API_URL}/api/fetchMicroCMSArticle/${id}`).then(async (res) => {
-    return await res.json()
-  })
+  const router = useRouter()
+
+  const { id } = useParams()
+  const [ article, setArticle ] = useState<ArticleContent>()
+  
+  useEffect(() => {
+    async function fetchMicroCMSArticle() {
+      const article = await fetch(`${API_URL}/api/fetchMicroCMSArticle/${id}`).then(async (res) => {
+        return await res.json()
+      })
+      setArticle(article.data)
+    }
+    fetchMicroCMSArticle()
+  }, [id])
+
 
   return (
     <div className="p-4">
-      <h1 className="text-4xl font-blod">{article.data?.title || "No Title"}</h1>
-      {article.data?.thumbnail && <Image src={article.data.thumbnail} alt={article.data.title} width={600} />}
-      <p>Published on: {article.data?.date ? new Date(article.data.date).toLocaleDateString() : "Unknown Date"}</p>
-      <a href={article.data?.url} target="_blank" rel="noopener noreferrer">
+      <h1 className="text-4xl font-blod">{article?.title || "No Title"}</h1>
+      {article?.thumbnail && <Image src={article.thumbnail} alt={article.title} width={600} height={300} />}
+      <p>Published on: {article?.date ? new Date(article.date).toLocaleDateString() : "Unknown Date"}</p>
+      <a href={article?.url} target="_blank" rel="noopener noreferrer">
         サイトへ移動
       </a>
+      <button className="btn m-4" onClick={() => router.push(`${article?.url}`)}>サイトへ</button>
     </div>
   )
 }

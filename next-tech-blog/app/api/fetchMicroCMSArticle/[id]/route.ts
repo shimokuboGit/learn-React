@@ -2,7 +2,8 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 export async function GET(req: NextApiRequest, { params }: { params: { id: string } } ) {
-  const id = await params.id
+  const p = await params
+  const id = p.id
   
   try {
     const result = await fetch(`https://ujmy0b3t91.microcms.io/api/v1/blogs/${id}`, {

@@ -31,7 +31,7 @@ export default function Home() {
     <div className="w-10/12 mx-auto">
       <div className="flex justify-between items-center pt-4">
         <Title title="個人記事" />
-        <button className="btn m-4" onClick={() => router.push('personalBlogs')}>個人記事一覧</button>
+        <button className="btn m-4" onClick={() => router.push('personalBlogs')}>もっと見る</button>
       </div>
       <div className="grid grid-cols-4 gap-2 justify-items-center">
         {qiitaArticles.map((a, index) => (
@@ -43,7 +43,7 @@ export default function Home() {
       </div>
       <div className="flex justify-between items-center pt-4">
         <Title title="ブログ記事" />
-        <button className="btn m-4" onClick={() => router.push('blogs')}>もっとみる</button>
+        <button className="btn m-4" onClick={() => router.push('blogs')}>もっと見る</button>
       </div>
       <div className="grid grid-cols-4 gap-2 justify-items-center">
         {microCMSArticles.map((a, index) => (
