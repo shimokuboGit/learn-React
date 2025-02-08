@@ -4,7 +4,7 @@ import Title from "../../../components/atoms/Title";
 
 describe('Title', () => {
   it('タイトルがある', () => {
-    render(<Title />)
+    render(<Title title='Title'/>)
     const title = screen.getByText('Title')
     expect(title).toBeInTheDocument()
   })
