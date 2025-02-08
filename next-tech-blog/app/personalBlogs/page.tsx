@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { QiitaContent } from '../components/organisms/QiitaContent';
 import Title from "../components/atoms/Title";
 import BackButton from "../components/atoms/BackButton";
+import { ArticleContent } from "../domain/ArticleContent";
 
 export default function PersonalBlogs() {
   const [articles, setArticles] = useState<ArticleContent[]>([])
@@ -20,7 +21,7 @@ export default function PersonalBlogs() {
   return (
     <div>
       <Title title="個人記事一覧" />
-      <div className="p-4 pt-8">
+      <div className="w-10/12">
         <div className="grid grid-cols-4 gap-2">
           {articles.map((m, index) => (
             <QiitaContent

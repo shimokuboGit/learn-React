@@ -10,7 +10,7 @@ type responseJosn = {
 
 export async function GET() {
   try {
-    const result = await fetch('https://ujmy0b3t91.microcms.io/api/v1/blogs', {
+    const result = await fetch('https://ujmy0b3t91.microcms.io/api/v1/blogs?limit=4', {
       headers: {
         'X-MICROCMS-API-KEY': 'pn7QeLEAElBWhoI82E57nqkN3zoT5IRn0XdC'
       }

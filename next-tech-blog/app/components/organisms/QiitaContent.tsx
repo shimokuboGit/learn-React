@@ -13,6 +13,8 @@ export const QiitaContent = ({article}: QiitaContentProps) => {
         <figure>
           <Image
             src={thumbnail}
+            width={300}
+            height={30}
             alt="qiita-thumbnail" />
         </figure>
         <div className="card-body">
