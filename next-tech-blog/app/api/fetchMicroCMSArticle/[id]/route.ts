@@ -13,12 +13,14 @@ export async function GET(request: Request) {
       throw new Error(`Error ${result.statusText}`)
     }
     const data = await result.json()
+    
     const responseData = {
       id: data.id,
       title: data.title,
       date: data.createdAt,
       url: `https://ujmy0b3t91.microcms.io/apis/blogs/${data.id}`,
-      thumbnail: data.thumbnail.url
+      thumbnail: data.thumbnail.url,
+      content: data.content
     }
     return NextResponse.json({ data: responseData })
   } catch (error) {

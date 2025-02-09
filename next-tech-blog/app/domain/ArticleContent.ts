@@ -4,4 +4,5 @@ export type ArticleContent = {
   date: string;
   url: string;
   thumbnail: string;
+  content?: string;
 }
