@@ -8,7 +8,7 @@ type QiitaContentProps = {
 export const QiitaContent = ({article}: QiitaContentProps) => {
   const { title, date, url, thumbnail } = article;
   return (
-    <div className="card card-compact bg-base-100 w-96 shadow-xl">
+    <div className="card card-compact bg-base-100 w-50 max-h-50 shadow-xl">
       <a href={`${url}`} target="_blank">
         <figure>
           <Image
