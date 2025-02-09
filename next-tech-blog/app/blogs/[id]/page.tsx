@@ -13,9 +13,7 @@ export default function Page () {
   
   useEffect(() => {
     async function fetchMicroCMSArticle() {
-      const article = await fetch(`/api/fetchMicroCMSArticle/${id}`).then(async (res) => {
-        return await res.json()
-      })
+      const article = await(await fetch(`/api/fetchMicroCMSArticle/${id}`)).json()
       setArticle(article.data)
     }
     fetchMicroCMSArticle()

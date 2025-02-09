@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, response: Response, { params }: { params: { id: string } } ) {
-  const p = params
-  const id = p.id
+export async function GET(request: Request) {
+  const id = request.url.split('/fetchMicroCMSArticle/')[1]
   
   try {
     const result = await fetch(`https://ujmy0b3t91.microcms.io/api/v1/blogs/${id}`, {
