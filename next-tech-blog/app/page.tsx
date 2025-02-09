@@ -10,16 +10,15 @@ export default function Home() {
   const router = useRouter()
   const [qiitaArticles, setQiitaArticles] = useState<ArticleContent[]>([])
   const [microCMSArticles, setMicroCMSArticles] = useState<ArticleContent[]>([])
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
   
   useEffect(() => {
     async function fetchMicroCMSArticles() {
-      const res = await (await fetch(`${API_URL}/api/fetchMicroCMSArticles`)).json()
+      const res = await (await fetch(`/api/fetchMicroCMSArticles`)).json()
       setMicroCMSArticles(res.data)
     }
 
     async function fetchQiitaArticles() {
-      const res = await (await fetch(`${API_URL}/api/fetchQiitaArticles`)).json()
+      const res = await (await fetch(`/api/fetchQiitaArticles`)).json()
       setQiitaArticles(res.data)
     }
 

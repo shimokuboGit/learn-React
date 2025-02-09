@@ -11,8 +11,7 @@ export default function PersonalBlogs() {
 
   useEffect(() => {
     async function fetchQiitaArticles() {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL
-      const res = await (await fetch(`${API_URL}/api/fetchAllQiitaArticles`)).json()
+      const res = await (await fetch(`/api/fetchAllQiitaArticles`)).json()
       setArticles(res.data)
     }
     fetchQiitaArticles()

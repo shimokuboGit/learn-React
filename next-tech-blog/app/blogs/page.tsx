@@ -10,8 +10,7 @@ export default function AllArticle() {
   const [ article, setArticle ] = useState<ArticleContent[]>([])
   useEffect(() => {
     async function fetchArticle() {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL
-      const res = await(await fetch(`${API_URL}/api/fetchMicroCMSArticles`)).json()
+      const res = await(await fetch(`/api/fetchMicroCMSArticles`)).json()
       setArticle(res.data)
     }
     fetchArticle()
