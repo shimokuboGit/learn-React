@@ -26,10 +26,7 @@ describe('個別ブログページ', () => {
   ))
 
   it('初期レンダリング時にローディングを表示', async () => {
-    let resolveFetch: (value: any) => void
-    const fetchPromise = new Promise((resolve) => {
-      resolveFetch = resolve;
-    });
+    const fetchPromise = new Promise(() => {});
     (global.fetch as jest.Mock) = jest.fn(() => fetchPromise)
 
     const { container } = render(<Page />);
