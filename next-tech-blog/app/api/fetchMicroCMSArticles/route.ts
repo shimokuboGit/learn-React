@@ -49,7 +49,7 @@ export async function GET() {
         }
       ]
     }
-    const responseData = data.contents.map((d: { id: string; title: string; createdAt: string; thumbnail: { url: string; }; }) => ({
+    const responseData: responseJosn[] = data.contents.map((d: { id: string; title: string; createdAt: string; thumbnail: { url: string; }; }) => ({
       id: d.id,
       title: d.title,
       date: d.createdAt,
