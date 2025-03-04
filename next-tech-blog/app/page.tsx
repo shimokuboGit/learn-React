@@ -45,12 +45,16 @@ export default function Home() {
         <button className="btn m-4" onClick={() => router.push('blogs')}>もっと見る</button>
       </div>
       <div className="grid grid-cols-4 gap-2 justify-items-center">
-        {microCMSArticles.map((a, index) => (
-          <QiitaContent
-            key={index}
-            article={a}
-          />
-        ))}
+        {microCMSArticles.length > 0 ? (
+          microCMSArticles.map((a, index) => (
+            <QiitaContent
+              key={index}
+              article={a}
+            />
+          ))
+        ) : (
+          <p className="col-span-4 text-center text-gray-500">記事がありません。</p>
+        )}
       </div>
     </div>
   );
